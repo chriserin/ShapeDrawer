@@ -12,6 +12,7 @@ jQuery ->
         orientation: 0
       }
       super()
+      @setColor(app.colorsList.last().cid)
     getColor: (side = 0) ->
       colors = @attributes.colors
       firstColor = colors[side]
@@ -23,9 +24,26 @@ jQuery ->
         app.colorsList.getByCid(firstColor)
     setColor: (colorId) ->
       colors = @get 'colors'
+      previousColor = app.colorsList.getByCid(colors[0])
+      previousColor?.unbind("removeColor", @processRemoveColor)
+      previousColor?.unbind("change:alpha", @viewRender)
       colors[0] = colorId
       @set {'colors': colors}
+      color = app.colorsList.getByCid(colorId)
+      color.bind("removeColor", @processRemoveColor)
+      color.bind("change:alpha", @viewRender)
       do @change
+    viewRender: => 
+      @view.render()
+      do @change
+    processRemoveColor: (color, alternateColor) =>
+      if(color.confirmedDelete)
+        @setColor(alternateColor)
+      else if ! color.confirmationPresented
+        result = confirm('This color is used by a shape, do you still want to remove it?')
+        color.confirmedDelete = result
+        color.confirmationPresented = true
+        if result then @setColor(alternateColor)
     moveVertical: (num) ->
       pos = @get 'position'
       pos.top += num
@@ -39,17 +57,20 @@ jQuery ->
     growSide: (side, num) ->
       sides =  @get 'squares'
       orientedSide = (side + @attributes.orientation) % 4
-      sides[orientedSide] += num
+      if sides[orientedSide] + num > 0
+        sides[orientedSide] += num
+      else
+        sides[orientedSide] = 0
       @set {'squares': sides}
       do @change
     roundCorners: (num=1)->
       corner_depths = @get 'corner_depths'
       corner_depths = for x in corner_depths
-        x + num
+        if x + num < 0 then x else x + num
       @set {'corner_depths': corner_depths}
     roundCorner: (corner, num)->
       corner_depths = @get 'corner_depths'
-      corner_depths[corner] += num
+      corner_depths[corner] += num unless corner_depths[corner] + num < 0
       @set {'corner_depths': corner_depths}
       do @change
     growInnerVertical: (num)->
@@ -64,11 +85,17 @@ jQuery ->
         @growHeight(num)
     growHeight: (num) ->
       h = @get 'height'
-      h += num
+      if h + num > 0
+        h += num
+      else
+        h = 0
       @set {'height': h}
     growWidth: (num) ->
       w = @get 'width'
-      w += num
+      if w + num > 0
+        w += num
+      else
+        w = 0
       @set {'width': w}
     rotate: ->
       o = @get 'orientation'

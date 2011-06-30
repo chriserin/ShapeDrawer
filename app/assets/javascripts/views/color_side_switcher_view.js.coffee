@@ -7,7 +7,7 @@ jQuery ->
       'click .color_side_switcher': 'switchSide'
     render: ->
       $(".color_side_switcher").remove()
-      if app.shapeManView.model?.shape_type is 'trectangle'
+      if app.shapeManView.model?.get("shape_type") is 'trectangle'
         $(@el).append("<div class='color_side_switcher'></div>")
         if @side is 0
           $(".color_side_switcher").css("border-left-color", "blue")

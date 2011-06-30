@@ -34,8 +34,8 @@ jQuery ->
       m_attr = @model.attributes
       tools = $(".shape_tools_#{@model.cid} ")
         .move_to((m_attr.position.left - 1) * 20, (m_attr.position.top - 1) * 20)
-        .set_a_size_rectangle(m_attr.orientation, (@model.generalWidth() + 2) * 20)
-        .set_b_size_rectangle(m_attr.orientation, (@model.generalHeight() + 2) * 20)
+        .set_a_size_rectangle(0, (@model.generalWidth() + 2) * 20)
+        .set_b_size_rectangle(0, (@model.generalHeight() + 2) * 20)
         .css("z-index", @operatingZIndex - 1)
       $(".graph_paper .#{@model.cid}").bind('click', @toggleAltTools)
       $(".rounder").css("z-index", @operatingZIndex + 1)

@@ -32,13 +32,16 @@ jQuery ->
       $('#shapes_chooser .shape_selector').remove()
       @model.each(@renderShapeSelector, @)
     renderShapeSelector: (shape)->
-      #$(@el).append($("<div class='shape_sortable' id='sort_#{shape.cid}'></div>"))
       selector = $("<div class='shape_selector shape_chooser_display shape_chooser' id='sort_#{shape.cid}'><div class='shape_selector_glass_top' name='#{shape.cid}'></div><div class='#{shape.get('shape_type')} selectable_shape #{shape.cid}'></div></div>")
       $(@el).append(selector)
+      if(shape is app.shapeManView.model) then selector.addClass("selected_shape")
+      @applyCSSToShapeSelector(shape)
+      shape.unbind("change", @applyCSSToShapeSelector)
+      shape.bind("change", @applyCSSToShapeSelector)
+    applyCSSToShapeSelector: (shape) =>
       shapeSize = @getShapeSize(shape)
       shape.view.renderShape($(".shape_selector .#{shape.cid}"), shapeSize, shape.getColor(), shape.attributes)
       $(".shape_selector .#{shape.cid}").css('top', 0).css('left', 0).css('margin-top', -Math.round((shape.generalHeight() * shapeSize) / 2))
-      if(shape is app.shapeManView.model) then selector.addClass("selected_shape")
     selectShape: (e) ->
       @selectShapeWithModel(@model.getByCid(e.target.attributes[1].value))
     selectShapeWithModel: (selectedModel, displayToolsFlag = true) ->
@@ -46,6 +49,7 @@ jQuery ->
       app.shapeManView.model = selectedModel
       if displayToolsFlag then app.shapeManView.model.toolsView?.displayTools()
       @render()
+      app.colorsView.colorSideSwitcherView.render()
     removeShape: (e) ->
       cid = e.target.attributes[1].value
       removeShapeWithCid(cid)

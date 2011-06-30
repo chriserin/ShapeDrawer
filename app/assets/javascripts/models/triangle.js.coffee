@@ -21,6 +21,13 @@ jQuery ->
     shrinkDown: ->
       @growSide(2, -1)
     generalWidth: ->
-      @attributes.width + @attributes.squares[0] + @attributes.squares[2]
+      if @attributes.orientation in [0, 2]
+        @attributes.squares[0] + @attributes.squares[2]
+      else
+        @attributes.squares[3]
+
     generalHeight: ->
-      @attributes.height + @attributes.squares[3]
+      if @attributes.orientation in [0, 2]
+        @attributes.squares[3]
+      else
+        @attributes.squares[0] + @attributes.squares[2]

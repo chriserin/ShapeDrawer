@@ -9,21 +9,23 @@ jQuery ->
       else
         parent = $("#{@el}#{size} .#{@model.parent}")
 
-      $("#{@el}#{size} .#{@model.cid}").remove()
       m_attr = @model.attributes
-      parent.append("<div class='#{m_attr.shape_type} preview_shape #{@model.cid}'/>")
       color = @model.getColor()
-      shape = $("#{@el}#{size} .#{@model.cid}")
-      shape.css('z-index', @model.get('zindex'))
-      @renderShape(shape, size, color, m_attr)
-      shape.draggable(
-        grid: [20, 20]
-        start: @dragStart
-        stop: @stop
-      )
-      if @model.child?
-        childShape = @model.child
-        childShape.view.render(childShape, {}, size)
+
+      if(letterId is app.shapes.letterId or size < 20)
+        $("#{@el}#{size} .#{@model.cid}").remove()
+        parent.append("<div class='#{m_attr.shape_type} preview_shape #{@model.cid}'/>")
+        shape = $("#{@el}#{size} .#{@model.cid}")
+        shape.css('z-index', @model.get('zindex'))
+        @renderShape(shape, size, color, m_attr)
+        shape.draggable(
+          grid: [20, 20]
+          start: @dragStart
+          stop: @stop
+        )
+        if @model.child?
+          childShape = @model.child
+          childShape.view.render(childShape, {}, size)
       if size isnt 6 then @render shape, options, 6
     dragStart: (e) =>
       @selectShape()

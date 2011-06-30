@@ -1,5 +1,7 @@
 jQuery ->
   class app.models.Color extends Backbone.Model
+    initialize: -> 
+      @view = new app.views.ColorView({model: @})
     defaults: {
       r: 200,
       g: 50,

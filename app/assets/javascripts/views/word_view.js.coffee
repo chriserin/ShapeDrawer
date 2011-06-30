@@ -25,8 +25,8 @@ jQuery ->
       $('.graph_paper').removeClass(app.shapes.letterId)
       app.shapeChooserView.changeModel(shapes)
       $('.graph_paper').addClass(shapes.letterId)
+      app.shapes = shapes
       shapes.each((x) -> x.change(); x.view.render(x, 6))
       app.shapeChooserView.selectShapeWithModel(shapes.first(), false)
-      app.shapes = shapes
     addLetter: ->
       do app.wordCommandsView.addLetter

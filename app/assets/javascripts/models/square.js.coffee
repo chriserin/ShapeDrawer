@@ -29,6 +29,6 @@ jQuery ->
       else
         app.colorsList.getByCid(firstColor)
     generalWidth: ->
-      @attributes.width
+      if @attributes.orientation in [0, 2] then @attributes.width else @attributes.height
     generalHeight: ->
-      @attributes.height
+      if @attributes.orientation in [0, 2] then @attributes.height else @attributes.width

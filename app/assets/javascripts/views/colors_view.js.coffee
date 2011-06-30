@@ -17,22 +17,23 @@ jQuery ->
       @model.each(@renderColorSelector, @)
       @colorSideSwitcherView.render()
     renderColorSelector: (color)->
-      colorContainer = @getColorContainer(color)
-      whiteBackgroundDiv = $("<div class='white_background'></div>")
-      slider = $("<input type='range' name='#{color.cid}' min='0' max='100' step='5' value='80' class='opacity_slider'></input>")
-      colorDiv = $("<div class='color_selector color_chooser' id='#{color.cid}'></div>")
-        .css('background-color', color.to_s())
-      colorDiv.append(slider)
-      wholeColorDiv = $("<div class='color_wrapper'></div>").append(colorDiv).append("<div class='color_remover' name='#{color.cid}'><div class='del_shape_sign'></div><div class='del_shape_sign_vert'></div></div>")
-      wholeColorDiv.append(whiteBackgroundDiv)
-      colorContainer.append(wholeColorDiv)
+      color.view.render()
     selectColor: (e) ->
       cid = e.target.attributes[1].value
       app.shapeManView.model?.setColor(cid)
     removeColor: (e) ->
       cid = e.currentTarget.attributes[1].value
-      app.colorsList.remove(@model.getByCid(cid))
-      $(".#{cid}").remove()
+      color = @model.getByCid(cid)
+      alternateColor = @getColorOtherThan(color)
+      color.trigger("removeColor", color, alternateColor)
+      color.confirmationPresented = false
+      if color.confirmedDelete
+        app.colorsList.remove(color)
+        $(".#{cid}").remove()
+    getColorOtherThan: (color) ->
+      for i in [2...@model.length]
+        if color isnt @model.at(i)
+          return @model.at(i)
     changeOpacity: (e) ->
       cid = e.target.attributes[1].value
       colorModel = @model.getByCid(cid)
@@ -40,13 +41,3 @@ jQuery ->
       color = colorModel.to_s()
       $("##{cid}").css('background-color', color)
       @model.getByCid(cid).set({alpha: e.target.value * .01})
-    getColorContainer: (color) ->
-      color = color.attributes
-      if color.r > color.g and color.r  > color.b
-        $(".reds_container")
-      else if color.g > color.r and color.g > color.b
-        $(".greens_container")
-      else if color.b > color.r and color.b > color.g
-        $(".blues_container")
-      else
-        $(".grays_container")
