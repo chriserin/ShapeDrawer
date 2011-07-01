@@ -4,6 +4,7 @@ jQuery ->
   #INIT
   app.grid = new app.models.Grid()
   app.gridView = new app.views.GridView({model: app.grid})
+  app.gridControlsView = new app.views.GridControlsView({model: app.grid})
   app.gridView.render()
   app.shapeManView = new app.views.ShapeManipulationView()
   #app.shapes = new app.models.ShapesList()

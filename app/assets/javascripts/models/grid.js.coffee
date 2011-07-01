@@ -1,5 +1,7 @@
 jQuery ->
   class app.models.Grid extends Backbone.Model
+    initialize: ->
+      @view = new app.views.GridView({'model': @})
     defaults: {
       grid_size:  20,
       grid_height: 20,
@@ -17,7 +19,7 @@ jQuery ->
       g_width = @model.get('grid_width')
       g_size = @model.get('grid_size')
       for i in [0...(g_height * g_width)]
-        $(@el).append("<div class='grid_square'/>")
+        $(@el).prepend("<div class='grid_square'/>")
       $(@el).height(g_size * g_height)
       $(@el).width(g_size * g_width)
       $('.grid_square').height(g_size - 2)
