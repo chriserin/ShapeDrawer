@@ -51,7 +51,13 @@ jQuery ->
         .append("<div class='bottomBar'><div class='growDown innergrower'></div><div class='rounder rBottomRight' id='r_2'></div></div>")
         .append("<div class='leftBar'><div class='growLeft innergrower'></div><div class='rBottomLeft' id='removeShape'>X</div></div>")
         .append("<div class='rightBar'><div class='growRight innergrower'></div><div class='rTopRight' id='rotate'>&#8592;</div></div>")
-
+      
+      if(@model.get('shape_type') in ['triangle', 'rectangle'])
+        $(".innergrower").removeClass("innergrower").addClass("grower")
+        @addGrowerDrags()
+      else
+        @addInnerGrowerDrags()
+    addInnerGrowerDrags: ->
       $(".growUp").draggable(
         grid: [20, 20]
         start: @dragStart
@@ -76,7 +82,6 @@ jQuery ->
         stop: @dragInnerGrowDown
         axis: 'y'
       )
-
     removeTools: =>
       if @hoverRemove
         $(".shape_tools").remove()
@@ -95,6 +100,8 @@ jQuery ->
         .append("<div class='bottomBar'><div class='growDown grower'></div><div class='rounder rBottomRight' id='r_2'>R</div></div>")
         .append("<div class='leftBar'><div class='growLeft grower'></div><div class='rounder rBottomLeft' id='r_3'>R</div></div>")
         .append("<div class='rightBar'><div class='growRight grower'></div><div class='rounder rTopRight' id='r_1'>R</div></div>")
+      @addGrowerDrags()
+    addGrowerDrags: ->
       $(".growUp").draggable(
         grid: [20, 20]
         start: @dragStart
@@ -119,7 +126,6 @@ jQuery ->
         stop: @dragGrowDown
         axis: 'y'
       )
-
     dragStart: (e) =>
       @offsetStartY = e.pageY
       @offsetStartX = e.pageX

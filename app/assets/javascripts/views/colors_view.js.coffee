@@ -21,15 +21,18 @@ jQuery ->
     selectColor: (e) ->
       cid = e.target.attributes[1].value
       app.shapeManView.model?.setColor(cid)
+      @highliteSelectedColor(cid)
     removeColor: (e) ->
       cid = e.currentTarget.attributes[1].value
       color = @model.getByCid(cid)
       alternateColor = @getColorOtherThan(color)
-      color.trigger("removeColor", color, alternateColor)
+      color.noShapesAreUsingThis = true
+      color.trigger("removeColor", color, alternateColor.cid)
       color.confirmationPresented = false
-      if color.confirmedDelete
+      if color.confirmedDelete || color.noShapesAreUsingThis
         app.colorsList.remove(color)
         $(".#{cid}").remove()
+        @highliteSelectedColor(alternateColor.cid)
     getColorOtherThan: (color) ->
       for i in [2...@model.length]
         if color isnt @model.at(i)
@@ -41,3 +44,8 @@ jQuery ->
       color = colorModel.to_s()
       $("##{cid}").css('background-color', color)
       @model.getByCid(cid).set({alpha: e.target.value * .01})
+    highliteSelectedColor: (colorId='c3') ->
+      $(".selected_color").removeClass("selected_color")
+      $(".arrow").remove()
+      $("##{colorId}").parent().addClass("selected_color")
+      $(".selected_color").append("<div class='arrow'><div class='arrow_tip'></div><div class='arrow_shaft'></div></div>")

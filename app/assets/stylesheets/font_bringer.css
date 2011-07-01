@@ -351,7 +351,8 @@ div.color_selector
   border-color: black;
   height: 10px;
   width: 10px;
-  margin-left: 40px;
+  margin: 0px auto;
+  margin-top: 10px;
 }
 
 
@@ -654,4 +655,96 @@ input[type="range"]::-webkit-slider-thumb{
   width: 250px;
   margin-left: 20px;
   height: auto;
+}
+
+.selected_color
+{
+}
+
+.arrow
+{
+  position: relative;
+  float: right;
+  display: inline;
+  height: 25px;
+  width: 120px;
+}
+
+
+.arrow_tip
+{
+  display: inline;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+  border-width: 10px 20px 10px 0px;
+  height: 0px;
+  width: 0px;
+  position: absolute;
+}
+
+.arrow_shaft
+{
+  display: inline;
+  background-color: black;
+  height: 5px;
+  width: 50px;
+  position: absolute;
+  left: 12px;
+  top: 7px;
+  border-radius: 10px;
+}
+
+#grid_dimensions_view
+{
+  width: 190px;
+  height: 40px;
+}
+
+.grid_dimension
+{
+  display: inline;
+  height: 40px;
+  position: relative;
+  float: left;
+  font-size: 40px;
+  margin-top: -5px;
+}
+
+.grid_x
+{
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 30px;
+  margin-top: 2px;
+}
+
+.number_up_down
+{
+  display: inline;
+  width: 20px;
+  height: 40px;
+  position: relative;
+  float: left;
+
+}
+
+.number_up
+{
+  display: block;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+  border-width: 0px 10px 15px 10px;
+  position: absolute;
+  cursor: pointer; 
+}
+
+.number_down
+{
+  display: block;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+  border-width: 15px 10px 0px 10px;
+  position: absolute;
+  top: 20px;
+  cursor: pointer; 
 }

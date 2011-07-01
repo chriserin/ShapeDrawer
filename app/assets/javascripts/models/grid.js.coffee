@@ -24,3 +24,5 @@ jQuery ->
       $(@el).width(g_size * g_width)
       $('.grid_square').height(g_size - 2)
       $('.grid_square').width(g_size - 2)
+      $('#grid_dimension_width').text(g_width)
+      $('#grid_dimension_height').text(g_height)

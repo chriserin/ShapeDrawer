@@ -50,6 +50,7 @@ jQuery ->
       if displayToolsFlag then app.shapeManView.model.toolsView?.displayTools()
       @render()
       app.colorsView.colorSideSwitcherView.render()
+      app.colorsView.highliteSelectedColor(selectedModel?.get('colors')[0])
     removeShape: (e) ->
       cid = e.target.attributes[1].value
       removeShapeWithCid(cid)

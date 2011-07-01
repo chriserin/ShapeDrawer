@@ -37,6 +37,7 @@ jQuery ->
       @view.render()
       do @change
     processRemoveColor: (color, alternateColor) =>
+      color.noShapesAreUsingThis = false
       if(color.confirmedDelete)
         @setColor(alternateColor)
       else if ! color.confirmationPresented
@@ -70,6 +71,7 @@ jQuery ->
       @set {'corner_depths': corner_depths}
     roundCorner: (corner, num)->
       corner_depths = @get 'corner_depths'
+      corner = (corner + @get('orientation')) % 4
       corner_depths[corner] += num unless corner_depths[corner] + num < 0
       @set {'corner_depths': corner_depths}
       do @change

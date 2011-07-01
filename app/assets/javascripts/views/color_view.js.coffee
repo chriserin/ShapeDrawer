@@ -6,7 +6,7 @@ jQuery ->
     render: ->
       colorContainer = @getColorContainer()
       whiteBackgroundDiv = $("<div class='white_background'></div>")
-      slider = $("<input type='range' name='#{@model.cid}' min='0' max='100' step='5' value='80' class='opacity_slider'></input>")
+      slider = $("<input type='range' name='#{@model.cid}' min='0' max='100' step='5' value='#{Math.round(@model.get('alpha') * 100)}' class='opacity_slider'></input>")
       colorDiv = $("<div class='color_selector color_chooser' id='#{@model.cid}'></div>")
         .css('background-color', @model.to_s())
         .append(slider)
