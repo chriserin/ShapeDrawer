@@ -9,6 +9,8 @@ jQuery ->
       'click #child_rectangle_adder': 'addChildRectangle',
       'click #child_trectangle_adder': 'addChildTrectangle'
     }
+    instantiate: ->
+      @showChildShapeControls()
     addTriangle: ->
       triangle = new app.models.Triangle()
       triangleView = new app.views.TriangleView({model: triangle})
@@ -41,6 +43,7 @@ jQuery ->
       trectangleView = new app.views.TrectangleView({model: trectangle})
       @renderChildShape(trectangleView)
     renderChildShape: (view) ->
+      app.shapes.add(view.model)
       parent = app.shapeManView.model
       parent.child = view.model
       view.model.parent = parent.cid
@@ -49,5 +52,9 @@ jQuery ->
       toolsView = new app.views.ShapeToolsView({model: view.model})
       parent.view.render(app.shapeManView.model)
       parent.view.render(app.shapeManView.model, 6)
-    setZOrders: (selectedIndex=-1) ->
-
+    showChildShapeControls: ->
+      if app.shapeManView.model?.get('shape_type') is 'trectangle'
+        $(".child_shape_mechanism").show()
+      else
+        $(".child_shape_mechanism").hide()
+        

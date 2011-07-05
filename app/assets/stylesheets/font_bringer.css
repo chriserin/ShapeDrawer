@@ -670,6 +670,15 @@ input[type="range"]::-webkit-slider-thumb{
   width: 120px;
 }
 
+.child_shape_pointer
+{
+  position: relative;
+  display: inline;
+  height: 25px;
+  width: 50px;
+  float: left;
+  margin-top: 40px; 
+}
 
 .arrow_tip
 {
@@ -680,6 +689,13 @@ input[type="range"]::-webkit-slider-thumb{
   height: 0px;
   width: 0px;
   position: absolute;
+}
+
+.child_shape_arrow_tip
+{
+  border-color: transparent transparent transparent black;
+  border-width: 10px 0px 10px 20px;
+  left: 50px;
 }
 
 .arrow_shaft

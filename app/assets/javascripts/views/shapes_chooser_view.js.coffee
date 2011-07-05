@@ -2,20 +2,16 @@ jQuery ->
   class app.views.ShapesChooserView extends Backbone.View
     initialize: ->
       $(".shapes_wrapper").sortable(
-        update: (event, ui) -> 
-          console.log('sorting update')
+        update: (event, ui) ->
           sortable_ids = $(this).sortable('toArray')
           z_index = 10
           for sort_id in sortable_ids
             cid = sort_id.replace(/sort_/, '')
             model = app.shapes.getByCid(cid)
-            model.set({zindex: z_index++ })
+            model.set({zindex: z_index++ }) unless model.parent
+            model.child?.set({zindex: z_index++})
+          app.shapeChooserView.render()
         axis: "x"
-        start: -> console.log('sorting start')
-        sort: -> console.log('sorting sort')
-        change: -> console.log('sorting change')
-        beforeStop: -> console.log('sorting beforeStop')
-        stop: -> console.log('sorting stop')
         helper: 'clone'
       )
       
@@ -50,6 +46,7 @@ jQuery ->
       if displayToolsFlag then app.shapeManView.model.toolsView?.displayTools()
       @render()
       app.colorsView.colorSideSwitcherView.render()
+      app.letterCommandsView.showChildShapeControls()
       app.colorsView.highliteSelectedColor(selectedModel?.get('colors')[0])
     removeShape: (e) ->
       cid = e.target.attributes[1].value

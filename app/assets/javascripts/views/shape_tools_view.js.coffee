@@ -2,7 +2,7 @@ jQuery ->
   class app.views.ShapeToolsView extends app.views.ShapeManipulationView
     initialize: ->
       @model.toolsView = @
-      $("#{@el} .#{@model.cid}").live('mouseover', @displayTools)
+      $(@el).find(".#{@model.cid}").live('mouseover', @displayTools)
       $(".shape_tools_#{@model.cid}").live('mouseleave', @removeTools)
       $(".shape_tools_#{@model.cid} .rounder").live('click', @displayRoundTools)
       $(".shape_tools_#{@model.cid} #rotate").live('click', @rotate)
@@ -20,7 +20,7 @@ jQuery ->
       ShapeToolsView::currentToolsModel = @model
       @.__proto__.preventToolsDisplayFlag = true
       @setHoverRemove(true)
-      @shape = $("#{@el} .#{@model.cid}")
+      @shape = $(@el).find(".#{@model.cid}")
       tempZIndex =  parseInt(@shape.css('z-index'))
       if tempZIndex < 80 
         @model.previousZIndex = tempZIndex
@@ -86,7 +86,7 @@ jQuery ->
       if @hoverRemove
         $(".shape_tools").remove()
         model = ShapeToolsView::currentToolsModel
-        shape = $("#{@el} .#{model.cid}")
+        shape = $(@el).find(".#{model.cid}")
         .css('z-index', model.previousZIndex)
         @allowToolsDisplay()
         $(".graph_paper .#{model.cid}").unbind('click', model.toolsView.toggleAltTools)

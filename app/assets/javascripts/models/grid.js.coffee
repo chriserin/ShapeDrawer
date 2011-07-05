@@ -14,7 +14,7 @@ jQuery ->
     tagName: 'div'
     el: '.graph_paper'
     render: ->
-      $("#{@el} .grid_square").remove('')
+      $(@el).find(".grid_square").remove()
       g_height = @model.get('grid_height')
       g_width = @model.get('grid_width')
       g_size = @model.get('grid_size')

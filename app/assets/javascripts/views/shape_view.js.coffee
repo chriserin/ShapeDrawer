@@ -1,21 +1,22 @@
 jQuery ->
   class app.views.ShapeView extends Backbone.View
+    elFrag: ".size_"
     initialize: ->
       $(".#{@model.cid}").live('click', @selectShape)
-    render: (shape, options, size = 20) ->
+    render: (shape, options, size = 20, letterId) ->
+      letterId = @model.collection.letterId
       if not @model.parent
-        letterId = @model.collection.letterId
-        parent = $("#{@el}#{size}.#{letterId}")
+        parent = $("#{@elFrag}#{size}.#{letterId}")
       else
-        parent = $("#{@el}#{size} .#{@model.parent}")
+        parent = $("#{@elFrag}#{size} .#{@model.parent}")
 
       m_attr = @model.attributes
       color = @model.getColor()
 
       if(letterId is app.shapes.letterId or size < 20)
-        $("#{@el}#{size} .#{@model.cid}").remove()
+        $("#{@elFrag}#{size} .#{@model.cid}").remove()
         parent.append("<div class='#{m_attr.shape_type} preview_shape #{@model.cid}'/>")
-        shape = $("#{@el}#{size} .#{@model.cid}")
+        shape = $("#{@elFrag}#{size} .#{@model.cid}")
         shape.css('z-index', @model.get('zindex'))
         @renderShape(shape, size, color, m_attr)
         shape.draggable(
@@ -25,7 +26,7 @@ jQuery ->
         )
         if @model.child?
           childShape = @model.child
-          childShape.view.render(childShape, {}, size)
+          childShape.view.render(childShape, {}, size, letterId)
       if size isnt 6 then @render shape, options, 6
     dragStart: (e) =>
       @selectShape()
