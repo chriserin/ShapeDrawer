@@ -1,11 +1,12 @@
 jQuery ->
   class app.models.Trectangle extends app.models.Shape
     defaults: { shape_type: 'trectangle' }
-    initialize: ->
-      @super_defaults.colors = [2, 2, 2, 2]
-      $().extend(@attributes, @super_defaults)
-      @attributes.height = 1
-      @attributes.width = 1
+    initialize: (attributes) ->
+      if not attributes.colors
+        @super_defaults.colors = [2, 2, 2, 2]
+        $().extend(@attributes, @super_defaults)
+        @attributes.height = 1
+        @attributes.width = 1
     getColors: ->
       colors = for i in [0..3]
         @getColor i

@@ -1,42 +1,47 @@
 jQuery ->
   class app.views.WordView extends Backbone.View
     initialize: ->
-      @model.bind('add', @render)
-      @model.bind('remove', @render)
+      @setModel()
     el: '#word_view'
     events: {
       'click .letter_selector': 'selectLetter',
       'click #add_letter': 'addLetter'
+      'click #save_word': 'saveWord'
+      'click #view_words': 'viewWords'
     }
+    setModel: (model) =>
+      if (model) then @model = model
+      @model.get('letters').bind('add', @render)
+      @model.get('letters').bind('remove', @render)
+      @model.bind('change', @render)
     render: =>
       $('.letter_selector, #add_letter').remove()
-      @model.each(@renderLetter)
+      @model.get('letters').each(@renderLetter)
       do @renderAddLetter
     renderLetter: (letter) =>
-      $(".letter_selector.#{letter.cid}").remove()
-      $('#word_view').append("<div class='letter_display letter_selector size_6 #{letter.cid}' id='#{letter.cid}'><div class='letter_glass_top'></div></div>")
-      @renderLetterAspects(letter)
-    renderLetterAspects: (letter) =>
-      @dimensionsChange(letter.get('grid'), {}, letter)
-      letter.get('grid').view.render()
-      letter.get('shapes')?.each( (x) -> x.view.render())
+      letter.view.render()
     renderAddLetter: ->
-      $('#word_view').append("<div class='letter_display size_6' id='add_letter'><div class='add_letter_sign_horiz'></div><div class='add_letter_sign'></div><div class='letter_glass_top'></div></div>")
-    dimensionsChange: (grid, options, letter=app.letter) ->
-      $(".size_6.#{letter.cid}").height(grid.get("grid_height") * 6)
-      $(".size_6.#{letter.cid}").width(grid.get("grid_width") * 6)
+      letterDisplay = $("<div class='letter_display size_6' id='add_letter'></div>")
+      letterDisplay.append("<div class='add_letter_sign_horiz'></div><div class='add_letter_sign'></div><div class='letter_glass_top'></div>")
+      $('#word_view').append(letterDisplay)
     selectLetter: (e) ->
+      @selectLetterWithCid(e.target.parentNode.id)
+    selectLetterWithCid: (cid) ->
       do app.wordCommandsView.clearGraphPaper
       app.letter?.get('grid').unbind("change", @dimensionsChange)
-      app.letter = app.word.getByCid(e.target.parentNode.id)
+      app.letter = app.word.get('letters').getByCid(cid)
       letter = app.letter
       shapes = letter.get('shapes')
-      $('.graph_paper').removeClass(app.shapes.letterId)
+      if(app.shapes) then $('.graph_paper').removeClass(app.shapes.letterId)
       app.shapeChooserView.changeModel(shapes)
       $('.graph_paper').addClass(shapes.letterId)
       app.shapes = shapes
-      @renderLetterAspects(letter)
+      letter.view.renderLetterAspects()
       app.shapeChooserView.selectShapeWithModel(shapes.first(), false)
       app.letter.get('grid').bind("change", @dimensionsChange)
     addLetter: ->
       do app.wordCommandsView.addLetter
+    saveWord: ->
+      app.word.save()
+    viewWords: ->
+      app.appView.displayWords()

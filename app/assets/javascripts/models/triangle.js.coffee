@@ -1,8 +1,8 @@
 jQuery ->
   class app.models.Triangle extends app.models.Shape
     defaults: { shape_type: 'triangle' }
-    initialize: ->
-      $().extend(@attributes, @super_defaults)
+    initialize: (attributes, options) ->
+      $().extend(@attributes, @super_defaults) unless attributes.colors
     getColor: ->
       colors = @attributes.colors
       firstColor = colors[0]

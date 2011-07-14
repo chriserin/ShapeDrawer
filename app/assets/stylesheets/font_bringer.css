@@ -764,3 +764,18 @@ input[type="range"]::-webkit-slider-thumb{
   top: 20px;
   cursor: pointer; 
 }
+
+#words_list
+{
+ width: 500px;
+ height: 500px;
+ margin: 0 auto;
+ display: none;
+}
+
+.word_choice
+{
+  width: 500px;
+  float: left;
+  z-index: 101;
+}

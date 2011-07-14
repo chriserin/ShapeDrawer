@@ -1,10 +1,11 @@
 jQuery ->
   class app.models.Square extends app.models.Shape
     defaults: { shape_type: 'rectangle' }
-    initialize: ->
-      $().extend(@attributes, @super_defaults)
-      @attributes.height = 2
-      @attributes.width = 2
+    initialize: (attributes) ->
+      if not attributes.colors
+        $().extend(@attributes, @super_defaults) 
+        @attributes.height = 2
+        @attributes.width = 2
     growUp: (spaces=1) ->
       @growInnerVertical(spaces)
     growDown: (spaces=1) ->

@@ -16,7 +16,10 @@ jQuery ->
   app.word = new app.models.Word()
   app.wordView = new app.views.WordView({model: app.word})
   app.wordCommandsView = new app.views.WordControlsView()
+  app.appView = new app.views.AppView()
   app.wordCommandsView.addLetter()
+  #app.word.fetch({success: app.appView.renderPallette, silent: true})
+  app.wordView.render()
 
   $('#paste_selected_shapes').click -> paste_selected_shapes() draw_letter()
   $('#clear_buffer').click -> clear_buffer()

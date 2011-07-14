@@ -41,7 +41,7 @@ jQuery ->
     selectShape: (e) ->
       @selectShapeWithModel(@model.getByCid(e.target.attributes[1].value))
     selectShapeWithModel: (selectedModel, displayToolsFlag = true) ->
-      app.shapeManView.model?.toolsView.removeTools()
+      app.shapeManView.model?.toolsView?.removeTools()
       app.shapeManView.model = selectedModel
       if displayToolsFlag then app.shapeManView.model.toolsView?.displayTools()
       @render()

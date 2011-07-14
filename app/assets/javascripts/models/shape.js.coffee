@@ -11,7 +11,7 @@ jQuery ->
         width: 0,
         orientation: 0
       }
-      super()
+      super(arguments[0])
       @setColor(app.colorsList.last().cid)
     getColor: (side = 0) ->
       colors = @attributes.colors

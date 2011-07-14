@@ -10,15 +10,15 @@ jQuery ->
     }
     addLetter: ->
       letter = new app.models.Letter()
-      app.word.add(letter)
+      app.word.get('letters').add(letter)
       app.shapes = letter.get('shapes')
       app.shapeChooserView.changeModel(app.shapes)
       $("#shapes_chooser .shape_selector").remove()
       do @clearGraphPaper
       app.wordView.selectLetter({ target: {parentNode: {id: letter.cid}}})
     deleteLetter: (e) ->
-      app.word.remove(app.letter)
-      letter = app.word.first()
+      app.word.get('letters').remove(app.letter)
+      letter = app.word.get('letters').first()
       app.wordView.selectLetter({ target: {parentNode: {id: letter.cid}}})
     switchView: ->
     save: ->
