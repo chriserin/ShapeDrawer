@@ -13,7 +13,10 @@ jQuery ->
       $(@el).find('.word_choice').remove()
       $(@el).find('#add_word').remove()
       @renderAddWord() unless @el.id is "words_list"
-      @model.each((word) => @renderWordChoice(word) )
+      @model.each((word) =>
+        setTimeout( (=> @renderWordChoice(word)), WordListView::timeoutAmount)
+        WordListView::timeoutAmount = 50 +  WordListView::timeoutAmount
+        )
     renderWordChoice: (word) =>
       app.word = word
       wordChoice = $("<div class='word_choice #{word.cid}'></div>")

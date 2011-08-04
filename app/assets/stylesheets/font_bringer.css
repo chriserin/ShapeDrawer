@@ -726,6 +726,14 @@ input[type="range"]::-webkit-slider-thumb{
   border-radius: 10px;
 }
 
+#output_size_view {
+  display: inline;
+  margin-top: -5px;
+  height: 50px;
+  width: 60px;
+  float: left;
+}
+
 #grid_dimensions_view
 {
   width: 190px;

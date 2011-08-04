@@ -5,6 +5,8 @@ jQuery ->
       'click #save_word': 'saveWord'
       'click #view_words': 'viewWords'
       'click #output_word': 'outputWord'
+      'click .number_up.size': 'sizeUp'
+      'click .number_down.size': 'sizeDown'
     saveWord: ->
       app.word.save({}, {success: @saveSuccess})
     saveSuccess: =>
@@ -12,4 +14,12 @@ jQuery ->
       app.appView.displayWords()
     outputWord: =>
       if app.word.id
-        window.open("/words/#{app.word.id}/output")
+        window.open("/words/#{app.word.id}/output/#{$("#grid_dimension_size").text()}")
+    sizeUp: =>
+      size = $("#grid_dimension_size").text()
+      size++
+      $("#grid_dimension_size").text(size)
+    sizeDown: =>
+      size = $("#grid_dimension_size").text()
+      size--
+      $("#grid_dimension_size").text(size)

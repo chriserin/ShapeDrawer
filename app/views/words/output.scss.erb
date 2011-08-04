@@ -1,4 +1,4 @@
-$size: 20px;
+$size: <%= @size %>px;
 
 $transparent: transparent;
 <% @colorsJSON["colors"].each do |color| %>
@@ -42,16 +42,15 @@ $<%= color['colid']%>: <%=get_color_string(color)%>;
   }
 }
 
-.letter{
-  height: 400px;
-  width: 400px;
-  float: left;
-  position: relative;
-}
 
 
 <% @shapeCounter = 0 %>
 <% @wordDefinitionJSON["letters"].each_with_index do |letter, letter_index| %>
+#letter<%= letter_index %> {
+  @include size(<%= letter["grid"]["grid_height"] %>, <%= letter["grid"]["grid_width"] %>);
+  float: left;
+  position: relative;
+}
     <% letter["shapes"].each_with_index do |shape, shape_index| %>
       <% @shapeCounter += 1 %>
   <% self.formats = [:scss, :css] %>

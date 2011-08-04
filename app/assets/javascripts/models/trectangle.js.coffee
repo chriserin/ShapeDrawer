@@ -7,6 +7,7 @@ jQuery ->
         $().extend(@attributes, @super_defaults)
         @attributes.height = 1
         @attributes.width = 1
+        @setColor(app.word.get('colors').last().get('colid'), 4)
     getColors: ->
       colors = for i in [0..3]
         @getColor i
@@ -22,9 +23,8 @@ jQuery ->
         @attributes.width + @getSideSize(0) + @getSideSize(2)
     getSideSize: (side) ->
       if @attributes.squares[side] > 0 then @attributes.squares[side] else 0
-    setColor: (colorId) ->
+    setColor: (colorId, side = app.colorsView.colorSideSwitcherView.side) ->
       colors = @get 'colors'
-      side = app.colorsView.colorSideSwitcherView.side
       previousColor = app.word.get('colors').getByColid(colors[side]) || app.word.get('colors').getByColid(colors[0])
       previousColor?.unbind("removeColor", @processRemoveColor)
       previousColor?.unbind("change:alpha", @viewRender)

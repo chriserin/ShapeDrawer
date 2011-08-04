@@ -27,6 +27,7 @@ jQuery ->
       @hidePalletteControls()
       app.words = new app.models.WordList([], {group: 'allButSession'} )
       app.sessionWords = new app.models.WordList([], {group: 'session'} )
+      app.views.WordListView::timeoutAmount = 100
       app.words.fetch({success: @renderWordRepresentations})
       app.sessionWords.fetch({success: @renderSessionWords})
     renderWordRepresentations: (words) ->

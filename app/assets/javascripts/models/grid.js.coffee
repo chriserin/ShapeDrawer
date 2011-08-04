@@ -17,7 +17,7 @@ jQuery ->
       $(@el).find(".grid_square").remove()
       g_height = @model.get('grid_height')
       g_width = @model.get('grid_width')
-      g_size = @model.get('grid_size')
+      g_size = 20#@model.get('grid_size')
       for i in [0...(g_height * g_width)]
         $(@el).prepend("<div class='grid_square'/>")
       $(@el).height(g_size * g_height)

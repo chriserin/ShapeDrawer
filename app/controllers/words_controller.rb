@@ -55,6 +55,8 @@ class WordsController < ApplicationController
   end
 
   def output
+    @size = params[:size] || 20
+    puts @size
     @word = Word.find(params[:id])
     @wordDefinitionJSON = ActiveSupport::JSON.decode(@word.word_definition)
     @colorsJSON = ActiveSupport::JSON.decode(@word.colors)
