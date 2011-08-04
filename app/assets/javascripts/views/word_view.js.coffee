@@ -42,6 +42,7 @@ jQuery ->
     addLetter: ->
       do app.wordCommandsView.addLetter
     saveWord: ->
-      app.word.save()
+      app.word.save({}, {success: @saveSuccess})
+    saveSuccess: =>
     viewWords: ->
       app.appView.displayWords()

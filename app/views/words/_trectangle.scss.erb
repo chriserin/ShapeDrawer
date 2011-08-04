@@ -1,0 +1,4 @@
+background-color: transparent;
+  border-style: solid;
+  @include border-colors($<%= shape['colors'][orient(2, shape)] %>, $<%= shape['colors'][orient(3, shape)] %>, $<%= shape['colors'][orient(0, shape)] %>, $<%= shape['colors'][orient(1, shape)] %>); 
+  @include border-sizes(<%=shape["squares"][orient(1, shape)]%>, <%=shape["squares"][orient(2, shape)]%>, <%=shape["squares"][orient(3, shape)]%>, <%=shape["squares"][orient(0, shape)]%>); 

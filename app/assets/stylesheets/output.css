@@ -1,0 +1,43 @@
+.output_display {
+  width: 50%;
+  float: left;
+  position: relative;
+  display: inline;
+}
+
+.output_code {
+  width: 50%;
+  float: left;
+  position: relative;
+  display: inline;
+}
+
+.output_button {
+  margin: 5px;
+  font-family: 'UnifrakturCook', cursive;
+  font-size: 24px;
+  background-color: rgba(255, 0, 0, .5);
+  border: solid red 1px;
+  padding: 5px;
+  cursor: pointer;
+  float: right;
+  display: inline;
+ } 
+
+.output_header{
+  width: 100%;
+  height: 50px;
+}
+
+.letter{
+  margin: 10px;
+}
+
+.inner_container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.full_width{
+  width: 100%;
+}

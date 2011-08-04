@@ -3,7 +3,7 @@ jQuery ->
     defaults: { shape_type: 'rectangle' }
     initialize: (attributes) ->
       if not attributes.colors
-        $().extend(@attributes, @super_defaults) 
+        $().extend(@attributes, @super_defaults)
         @attributes.height = 2
         @attributes.width = 2
     growUp: (spaces=1) ->
@@ -22,13 +22,6 @@ jQuery ->
       @growInnerHoriz(-1)
     shrinkRight: ->
       @growInnerHoriz(-1)
-    getColor: ->
-      colors = @attributes.colors
-      firstColor = colors[0]
-      if typeof firstColor is 'number'
-        app.colorsList.at(firstColor)
-      else
-        app.colorsList.getByCid(firstColor)
     generalWidth: ->
       if @attributes.orientation in [0, 2] then @attributes.width else @attributes.height
     generalHeight: ->

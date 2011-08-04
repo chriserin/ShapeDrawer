@@ -1,17 +1,23 @@
 <div id="letter_commands">
-	<div id="triangle_adder" class="shape_adder"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='triangle'></div></div>
-	<div id="rectangle_adder" class="shape_adder"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='rectangle'></div></div>
-	<div id="trectangle_adder" class="shape_adder"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='trectangle'></div></div>
-        <div id="child_shape_pointer" class="child_shape_pointer child_shape_mechanism"><div class="arrow_shaft"></div><div class="arrow_tip child_shape_arrow_tip"></div></div>
-	<div id="child_triangle_adder" class="shape_adder child_shape_mechanism"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='triangle'></div></div>
-	<div id="child_rectangle_adder" class="shape_adder child_shape_mechanism"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='rectangle'></div></div>
-	<div id="child_trectangle_adder" class="shape_adder child_shape_mechanism"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='trectangle'></div></div>
+  <div id="triangle_adder" class="shape_adder"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='triangle'></div></div>
+  <div id="rectangle_adder" class="shape_adder"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='rectangle'></div></div>
+  <div id="trectangle_adder" class="shape_adder"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='trectangle'></div></div>
+  <div id="child_shape_pointer" class="child_shape_pointer child_shape_mechanism"><div class="arrow_shaft"></div><div class="arrow_tip child_shape_arrow_tip"></div></div>
+  <div id="child_triangle_adder" class="shape_adder child_shape_mechanism"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='triangle'></div></div>
+  <div id="child_rectangle_adder" class="shape_adder child_shape_mechanism"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='rectangle'></div></div>
+  <div id="child_trectangle_adder" class="shape_adder child_shape_mechanism"><div class='add_shape_sign'><div class='add_shape_sign_horiz'></div><div class='add_shape_sign_vert'></div></div><div class='trectangle'></div></div>
 </div>        
+<div id="app_menu_view">
+  <span id="output_word" class="app_menu_item">output</span>
+  <span id="view_words" class="app_menu_item">view</span>
+  <span id="save_word" class="app_menu_item">save</span>  
+</div>
 <div id="shapes_chooser">
   <div class="shapes_wrapper"></div>
 </div>
 <div id="colors_chooser">
   <div id="add_color"><div class='add_color_sign'></div><div class='add_color_sign_vert'></div></div>
+  <div id="random_pallate">R</div>
   <div class="color_container reds_container"></div>
   <div class="color_container greens_container"></div>
   <div class="color_container blues_container"></div>
@@ -25,7 +31,8 @@
   <div id="grid_dimensions_view"><div id="grid_dimension_height" class="grid_dimension">20</div><div class="number_up_down"><div class="number_up height"></div><div class="number_down height"></div></div><div class="grid_dimension grid_x">X</div><div id="grid_dimension_width" class="grid_dimension">20</div><div class="number_up_down"><div class="number_up width"></div><div class="number_down width"></div></div></div>
 </div>
 <div id="word_view">
-  <div id="save_word">Save Word</div>  
-  <div id="view_words">View Words</div>
 </div>
-<div id="words_list"></div>
+<div id="words_display">
+  <div id="session_words_list"></div>
+  <div id="words_list"></div>
+</div>

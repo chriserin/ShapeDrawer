@@ -10,16 +10,16 @@ jQuery ->
   #app.shapes = new app.models.ShapesList()
   app.letterCommandsView = new app.views.LetterCommandsView()
   app.shapeChooserView = new app.views.ShapesChooserView({model: app.shapes})
-  app.colorsList = new app.models.ColorsList()
-  app.colorsView = new app.views.ColorsView({model: app.colorsList})
-  app.colorsView.render()
   app.word = new app.models.Word()
   app.wordView = new app.views.WordView({model: app.word})
+  app.colorsView = new app.views.ColorsView({model: app.word.get('colors')})
+  app.colorsView.render()
   app.wordCommandsView = new app.views.WordControlsView()
   app.appView = new app.views.AppView()
   app.wordCommandsView.addLetter()
   #app.word.fetch({success: app.appView.renderPallette, silent: true})
   app.wordView.render()
+  app.menuView = new app.views.AppMenuView()
 
   $('#paste_selected_shapes').click -> paste_selected_shapes() draw_letter()
   $('#clear_buffer').click -> clear_buffer()
@@ -42,7 +42,7 @@ jQuery ->
     ,
     onSubmit: (hsb, hex, rgb) ->
       rgb.alpha = .8
-      app.colorsList.add(rgb)
+      app.word.get('colors').add(rgb)
   })
   
   #load()

@@ -1,0 +1,69 @@
+$size: 20px;
+
+$transparent: transparent;
+<% @colorsJSON["colors"].each do |color| %>
+$<%= color['colid']%>: <%=get_color_string(color)%>;
+<% end %>
+
+@mixin border-sizes($t, $r, $b, $l){
+  border-top-width: ($t * $size);
+  border-right-width: ($r * $size);
+  border-bottom-width: ($b * $size);
+  border-left-width: ($l * $size);
+}
+
+@mixin border-colors($t, $r, $b, $l){
+  border-top-color: $t;
+  border-right-color: $r;
+  border-bottom-color: $b; 
+  border-left-color: $l; 
+}
+
+@mixin size($h, $w){
+  height: ($h * $size);
+  width: ($w * $size);
+}
+
+@mixin position($t, $l){
+  position: absolute;
+  top: ($t * $size);
+  left: ($l * $size);
+}
+
+@mixin radius($tl, $tr, $br, $bl){
+  @if $tl == 0 and $tr == 0 and $br == 0 and $bl == 0 {
+  } @else {
+    -moz-border-radius-topleft: ($tl * $size);
+    -moz-border-radius-topright: ($tr * $size);
+    -moz-border-radius-bottomright: ($br * $size);
+    -moz-border-radius-bottomleft: ($bl * $size);
+    -webkit-border-radius: ($tl * $size) ($tr * $size) ($br * $size) ($bl * $size);
+    border-radius: ($tl * $size) ($tr * $size) ($br * $size) ($bl * $size);
+  }
+}
+
+.letter{
+  height: 400px;
+  width: 400px;
+  float: left;
+  position: relative;
+}
+
+
+<% @shapeCounter = 0 %>
+<% @wordDefinitionJSON["letters"].each_with_index do |letter, letter_index| %>
+    <% letter["shapes"].each_with_index do |shape, shape_index| %>
+      <% @shapeCounter += 1 %>
+  <% self.formats = [:scss, :css] %>
+  <% shape_css = render 'triangle', :shape => shape, :format => 'scss' if shape['shape_type'] == 'triangle' %>
+  <% shape_css = render 'rectangle', :shape => shape if shape['shape_type'] == 'rectangle' %>
+  <% shape_css = render 'trectangle', :shape => shape, :format => 'scss' if shape['shape_type'] == 'trectangle' %>
+
+#shape<%= @shapeCounter %>{
+  @include size(<%= shape["height"] %>, <%= shape["width"] %>);
+  @include position(<%= shape["position"]["top"] %>, <%= shape["position"]["left"] %>);
+  @include radius(<%= shape["corner_depths"][orient(0, shape)] %>, <%= shape["corner_depths"][orient(1, shape)] %>, <%= shape["corner_depths"][orient(2, shape)] %>, <%= shape["corner_depths"][orient(3, shape)] %>);
+  z-index: <%= 10 + shape_index %>;
+  <%= shape_css %>}
+    <% end %>
+<% end %>

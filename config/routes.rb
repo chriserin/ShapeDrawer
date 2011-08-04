@@ -2,7 +2,7 @@ ShapeDrawer::Application.routes.draw do
         root :to => 'fonts#index'
 
         resources :words
-
+  match 'words/:id/output' => 'words#output'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

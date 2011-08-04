@@ -1,0 +1,46 @@
+<%  require 'coderay'%>
+<%  require 'sass/engine'%>
+<html>
+<head>
+ <%= stylesheet_link_tag "/words/#{@word.id}/output" %>
+ <%= stylesheet_link_tag "output" %>
+ <%= stylesheet_link_tag "coderay_css" %>
+  <link href='http://fonts.googleapis.com/css?family=UnifrakturCook:700&v2' rel='stylesheet' type='text/css'>
+  <%= javascript_include_tag "output" %>
+</head>
+<div class="output_header">
+  <div class="display_nothing output_button">neither</div>
+  <div class="display_scss output_button">scss</div>
+  <div class="display_css output_button">css</div>
+</div>
+<div class="output_display">
+  <div class="inner_container">
+<% @shapeCounter = 0 %>
+<% @wordDefinitionJSON["letters"].each_with_index do |letter, letter_index| %>
+  <div id="letter<%= letter_index %>" class="letter">
+    <% letter["shapes"].each_with_index do |shape, shape_index| %>
+      <% @shapeCounter += 1 %>
+      <div id="shape<%= @shapeCounter %>"></div>
+    <% end %>
+  </div>
+<% end %>
+  </div>
+</div>
+<div class="output_code" id="output_css">
+  <% scss = render :file => "#{Rails.root}/app/views/words/output.scss" %>
+  <% css = Sass::Engine.new(scss, :syntax => :scss).to_css %>
+<%
+    tokens = CodeRay.scan css, :css
+     page = tokens.html :wrap => :div
+  %>
+  <%= raw page %>
+</div>
+<div class="output_code" id="output_scss">
+
+<%
+    tokens = CodeRay.scan scss, :css
+     page = tokens.html :wrap => :div
+  %>
+  <%= raw page %>
+</div>
+</html>

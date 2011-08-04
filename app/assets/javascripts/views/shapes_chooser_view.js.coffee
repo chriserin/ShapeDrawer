@@ -47,7 +47,9 @@ jQuery ->
       @render()
       app.colorsView.colorSideSwitcherView.render()
       app.letterCommandsView.showChildShapeControls()
-      app.colorsView.highliteSelectedColor(selectedModel?.get('colors')[0])
+      colid = selectedModel?.get('colors')[0]
+      cid = app.word.get('colors').getByColid(colid)?.cid
+      app.colorsView.highliteSelectedColor(cid)
     removeShape: (e) ->
       cid = e.target.attributes[1].value
       removeShapeWithCid(cid)

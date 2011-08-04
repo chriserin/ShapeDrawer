@@ -10,12 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110308224508) do
+ActiveRecord::Schema.define(:version => 20110803192704) do
 
   create_table "words", :force => true do |t|
     t.text     "word_definition"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "colors"
+    t.string   "session_id"
   end
 
 end

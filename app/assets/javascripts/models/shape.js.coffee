@@ -12,28 +12,28 @@ jQuery ->
         orientation: 0
       }
       super(arguments[0])
-      @setColor(app.colorsList.last().cid)
+      @setColor(app.word.get('colors').last().get('colid')) unless arguments[0]?.colors
     getColor: (side = 0) ->
       colors = @attributes.colors
       firstColor = colors[side]
       if typeof firstColor is 'number'
-        app.colorsList.at(firstColor)
+        app.word.get('colors').at(firstColor)
       else if (firstColor is 'transparent')
-        app.colorsList.getTransparent()
+        app.word.get('colors').getTransparent()
       else
-        app.colorsList.getByCid(firstColor)
+        app.word.get('colors').getByColid(firstColor)
     setColor: (colorId) ->
       colors = @get 'colors'
-      previousColor = app.colorsList.getByCid(colors[0])
+      previousColor = app.word.get('colors').getByColid(colors[0])
       previousColor?.unbind("removeColor", @processRemoveColor)
       previousColor?.unbind("change:alpha", @viewRender)
       colors[0] = colorId
       @set {'colors': colors}
-      color = app.colorsList.getByCid(colorId)
+      color = app.word.get('colors').getByColid(colorId)
       color.bind("removeColor", @processRemoveColor)
       color.bind("change:alpha", @viewRender)
       do @change
-    viewRender: => 
+    viewRender: =>
       @view.render()
       do @change
     processRemoveColor: (color, alternateColor) =>

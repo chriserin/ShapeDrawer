@@ -25,7 +25,7 @@ jQuery ->
     setColor: (colorId) ->
       colors = @get 'colors'
       side = app.colorsView.colorSideSwitcherView.side
-      previousColor = app.colorsList.getByCid(colors[side]) || app.colorsList.getByCid(colors[0])
+      previousColor = app.word.get('colors').getByColid(colors[side]) || app.word.get('colors').getByColid(colors[0])
       previousColor?.unbind("removeColor", @processRemoveColor)
       previousColor?.unbind("change:alpha", @viewRender)
       if side is 4
@@ -35,6 +35,6 @@ jQuery ->
         colors[side] = colorId
       @set {'colors': colors}
       do @change
-      color = app.colorsList.getByCid(colorId)
+      color = app.word.get('colors').getByColid(colorId)
       color.bind("removeColor", @processRemoveColor)
       color.bind("change:alpha", @viewRender)

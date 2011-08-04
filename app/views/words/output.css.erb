@@ -1,0 +1,24 @@
+.letter{
+  height: 400px;
+  width: 400px;
+  float: left;
+  position: relative;
+}
+<% @shapeCounter = 0 %>
+<% @wordDefinitionJSON["letters"].each_with_index do |letter, letter_index| %>
+    <% letter["shapes"].each_with_index do |shape, shape_index| %>
+      <% @shapeCounter += 1 %>
+  <% shape_css = render 'triangle', :shape => shape if shape['shape_type'] == 'triangle' %>
+  <% shape_css = render 'rectangle', :shape => shape if shape['shape_type'] == 'rectangle' %>
+  <% shape_css = render 'trectangle', :shape => shape if shape['shape_type'] == 'trectangle' %>
+
+#shape<%= @shapeCounter %>{
+  height: <%= shape["height"] * 20 %>px;
+  width: <%= shape["width"] * 20 %>px;
+  position: absolute;
+  top: <%= shape["position"]["top"] * 20 %>px;
+  left: <%= shape["position"]["left"] * 20 %>px;
+  z-index: <%= 10 + shape_index %>;
+  <%= shape_css %>}
+    <% end %>
+<% end %>

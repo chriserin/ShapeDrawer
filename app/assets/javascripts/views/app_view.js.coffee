@@ -5,6 +5,7 @@ jQuery ->
       cid = app.word.get('letters').first()
       app.wordView.selectLetterWithCid(cid)
       app.wordView.render()
+      app.colorsView.render()
     displayBlankWord: ->
       @createWord()
       @displayPallette()
@@ -19,14 +20,23 @@ jQuery ->
       app.wordView.setModel(app.word)
       app.wordCommandsView = new app.views.WordControlsView()
       app.appView = new app.views.AppView()
+      app.colorsView ||= new app.views.ColorsView()
+      app.colorsView.setModel(word.get('colors'))
       @renderPallette()
     displayWords: ->
       @hidePalletteControls()
-      app.words = new app.models.WordList()
+      app.words = new app.models.WordList([], {group: 'allButSession'} )
+      app.sessionWords = new app.models.WordList([], {group: 'session'} )
       app.words.fetch({success: @renderWordRepresentations})
+      app.sessionWords.fetch({success: @renderSessionWords})
     renderWordRepresentations: (words) ->
-      app.wordListView = new app.views.WordListView({model: words})
+      app.wordListView ||= new app.views.WordListView()
+      app.wordListView.model = words
       app.wordListView.render()
+    renderSessionWords: (words) ->
+      app.sessionWordListView ||= new app.views.WordListView({el: "#session_words_list"})
+      app.sessionWordListView.model = words
+      app.sessionWordListView.render()
     hidePalletteControls: ->
       $("#letter_commands").hide()
       $("#shapes_chooser").hide()
@@ -34,7 +44,8 @@ jQuery ->
       $("#grid_view").hide()
       $("#grid_controls_view").hide()
       $("#word_view").hide()
-      $("#words_list").show()
+      $("#app_menu_view").hide()
+      $("#words_display").show()
     displayPallette: ->
       $("#letter_commands").show()
       $("#shapes_chooser").show()
@@ -42,8 +53,10 @@ jQuery ->
       $("#grid_view").show()
       $("#grid_controls_view").show()
       $("#word_view").show()
-      $("#words_list").hide()
+      $("#app_menu_view").show()
+      $("#words_display").hide()
     selectWord: (cid) ->
       word = app.words.getByCid(cid)
+      word = app.sessionWords.getByCid(cid) unless word
       @switchWord(word)
       @displayPallette()

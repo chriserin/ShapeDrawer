@@ -765,17 +765,56 @@ input[type="range"]::-webkit-slider-thumb{
   cursor: pointer; 
 }
 
-#words_list
+#words_display
 {
- width: 500px;
+ width: 900px;
  height: 500px;
  margin: 0 auto;
  display: none;
 }
 
+#words_list, #session_words_list {
+  width: 100%;
+  margin: 10px;
+  float: left;
+  display: inline;
+  position: relative;
+}
+
+.and_more {
+  background-color: white;
+  margin-left: -60px;
+  float: right;
+  z-index: 200;
+  position: relative;
+} 
+
+#add_word {
+  width: 120px;
+}
+
 .word_choice
 {
-  width: 500px;
+  width: 150px;
   float: left;
   z-index: 101;
+}
+
+#app_menu_view
+{
+  display: inline;
+  float: right;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.app_menu_item
+{
+  margin: 5px;
+  font-family: 'UnifrakturCook', cursive;
+  font-size: 24px;
+  background-color: rgba(255, 0, 0, .5);
+  border: solid red 1px;
+  padding: 5px;
+  cursor: pointer;
 }
