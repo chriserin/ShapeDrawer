@@ -841,5 +841,14 @@ input[type="range"]::-webkit-slider-thumb{
   border: solid red 1px;
   padding: 5px;
   cursor: pointer;
+  -webkit-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+  -moz-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+  -ms-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+  -o-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+  transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750); /* linear */
 }
 
+.click_shadow
+{
+    box-shadow: 0 0 10px 10px red;
+}

@@ -1,16 +1,16 @@
 jQuery ->
   class app.models.Shape extends Backbone.Model
     constructor: ->
-      @super_defaults = {
-        colors: [2, 'transparent', 'transparent', 'transparent'],
-        backgound_color: 'transparent',
-        squares: [2, 2, 2, 2],
-        position: {top: 0, left: 0},
-        corner_depths: [0, 0, 0, 0],
-        height: 0,
-        width: 0,
+      @super_defaults =
+        colors: [2, 'transparent', 'transparent', 'transparent']
+        backgound_color: 'transparent'
+        squares: [2, 2, 2, 2]
+        position: {top: 0, left: 0}
+        corner_depths: [0, 0, 0, 0]
+        height: 0
+        width: 0
         orientation: 0
-      }
+        rotation: 0
       super(arguments[0])
       @setColor(app.word.get('colors').last().get('colid')) unless arguments[0]?.colors
     getColor: (side = 0) ->
@@ -103,6 +103,10 @@ jQuery ->
       o = @get 'orientation'
       o = (o + 1) % 4
       @set {'orientation': o}
+    fineRotate: ->
+      o = @get 'rotation'
+      o = (o + 15) % 360
+      @set {'rotation': o}
     growLeft: (spaces = 1) ->
       @growSide(0, spaces)
     growUp: (spaces = 1) ->

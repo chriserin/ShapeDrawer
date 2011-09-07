@@ -18,6 +18,7 @@ jQuery ->
         parent.append("<div class='#{m_attr.shape_type} preview_shape #{@model.cid}'/>")
         shape = $("#{@elFrag}#{size} .#{@model.cid}")
         shape.css('z-index', @model.get('zindex'))
+        shape.css('-webkit-transform', "rotate(#{@model.get('rotation')}deg)")
         @renderShape(shape, size, color, m_attr)
         shape.draggable(
           grid: [20, 20]

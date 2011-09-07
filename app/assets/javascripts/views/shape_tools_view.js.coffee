@@ -6,6 +6,7 @@ jQuery ->
       $(".shape_tools_#{@model.cid}").live('mouseleave', @removeTools)
       $(".shape_tools_#{@model.cid} .rounder").live('click', @displayRoundTools)
       $(".shape_tools_#{@model.cid} #rotate").live('click', @rotate)
+      $(".shape_tools_#{@model.cid} #fineRotate").live('click', @fineRotate)
       $(".shape_tools_#{@model.cid} #removeShape").live('click', @removeShape)
     el: '.graph_paper'
     setHoverRemove: (flag) ->
@@ -48,7 +49,7 @@ jQuery ->
     displayAltTools: ->
       tools = $(".shape_tools_#{@model.cid} ")
         .append("<div class='topBar'><div class='growUp innergrower'></div><div class='rounder rTopLeft' id='r_0'></div></div>")
-        .append("<div class='bottomBar'><div class='growDown innergrower'></div><div class='rounder rBottomRight' id='r_2'></div></div>")
+        .append("<div class='bottomBar'><div class='growDown innergrower'></div><div class='rounder rBottomRight' id='fineRotate'>&#8593;</div></div>")
         .append("<div class='leftBar'><div class='growLeft innergrower'></div><div class='rBottomLeft' id='removeShape'>X</div></div>")
         .append("<div class='rightBar'><div class='growRight innergrower'></div><div class='rTopRight' id='rotate'>&#8592;</div></div>")
       
@@ -58,30 +59,19 @@ jQuery ->
       else
         @addInnerGrowerDrags()
     addInnerGrowerDrags: ->
-      $(".growUp").draggable(
+      dragOptions =
         grid: [20, 20]
         start: @dragStart
+        axis: 'y'
         stop: @dragInnerGrowUp
-        axis: 'y'
-      )
-      $(".growLeft").draggable(
-        grid: [20, 20]
-        start: @dragStart
-        stop: @dragInnerGrowLeft
-        axis: 'x'
-      )
-      $(".growRight").draggable(
-        grid: [20, 20]
-        start: @dragStart
-        stop: @dragInnerGrowRight
-        axis: 'x'
-      )
-      $(".growDown").draggable(
-        grid: [20, 20]
-        start: @dragStart
-        stop: @dragInnerGrowDown
-        axis: 'y'
-      )
+      $(".growUp").draggable(dragOptions)
+      dragOptions.stop = @dragInnerGrowDown
+      $(".growDown").draggable(dragOptions)
+      dragOptions.stop = @dragInnerGrowLeft
+      dragOptions.axis = 'x'
+      $(".growLeft").draggable(dragOptions)
+      dragOptions.stop = @dragInnerGrowRight
+      $(".growRight").draggable(dragOptions)
     removeTools: =>
       if @hoverRemove
         $(".shape_tools").remove()
@@ -102,82 +92,68 @@ jQuery ->
         .append("<div class='rightBar'><div class='growRight grower'></div><div class='rounder rTopRight' id='r_1'>R</div></div>")
       @addGrowerDrags()
     addGrowerDrags: ->
-      $(".growUp").draggable(
+      dragOptions =
         grid: [20, 20]
         start: @dragStart
         stop: @dragGrowUp
         axis: 'y'
-      )
-      $(".growLeft").draggable(
-        grid: [20, 20]
-        start: @dragStart
-        stop: @dragGrowLeft
-        axis: 'x'
-      )
-      $(".growRight").draggable(
-        grid: [20, 20]
-        start: @dragStart
-        stop: @dragGrowRight
-        axis: 'x'
-      )
-      $(".growDown").draggable(
-        grid: [20, 20]
-        start: @dragStart
-        stop: @dragGrowDown
-        axis: 'y'
-      )
+      $(".growUp").draggable(dragOptions)
+      dragOptions.stop = @dragGrowDown
+      $(".growDown").draggable(dragOptions)
+      dragOptions.stop = @dragGrowLeft
+      dragOptions.axis = 'x'
+      $(".growLeft").draggable(dragOptions)
+      dragOptions.stop = @dragGrowRight
+      $(".growRight").draggable(dragOptions)
     dragStart: (e) =>
       @offsetStartY = e.pageY
       @offsetStartX = e.pageX
       @setHoverRemove(false)
       @preventToolsDisplay()
       return true
+    getSpacesMovedY: (e) =>
+      Math.round((e.pageY - @offsetStartY) / 20 )
+    getSpacesMovedX: (e) =>
+      Math.round((e.pageX - @offsetStartX) / 20 )
+    dragGrowY: (e, callback) =>
+      spacesMoved = @getSpacesMovedY(e)
+      callback.call(this, spacesMoved)
+      @setHoverRemove(true)
+      @removeTools()
+    dragGrowX: (e, callback) =>
+      spacesMoved = @getSpacesMovedX(e)
+      callback.call(this, spacesMoved)
+      @setHoverRemove(true)
+      @removeTools()
     dragInnerGrowDown: (e) =>
-      spacesMoved = Math.round((e.pageY - @offsetStartY) / 20 )
-      @model.growInnerVertical(spacesMoved)
-      @setHoverRemove(true)
-      @removeTools()
+      @dragGrowY e, (spacesMoved) -> @model.growInnerVertical(spacesMoved)
     dragInnerGrowUp: (e) =>
-      spacesMoved = - Math.round((e.pageY - @offsetStartY) / 20 )
-      @model.growInnerVertical(spacesMoved)
-      @setHoverRemove(true)
-      @removeTools()
-      @model.moveVertical( - spacesMoved)
+      @dragGrowY e, (spacesMoved) ->
+        @model.growInnerVertical(-spacesMoved)
+        @model.moveVertical(spacesMoved)
     dragInnerGrowLeft: (e) =>
-      spacesMoved = - Math.round((e.pageX - @offsetStartX) / 20 )
-      @model.growInnerHoriz(spacesMoved)
-      @setHoverRemove(true)
-      @removeTools()
-      @model.moveHoriz( - spacesMoved)
+      @dragGrowX e, (spacesMoved) ->
+        @model.growInnerHoriz(-spacesMoved)
+        @model.moveHoriz(spacesMoved)
     dragInnerGrowRight: (e) =>
-      spacesMoved = Math.round((e.pageX - @offsetStartX) / 20 )
-      @model.growInnerHoriz(spacesMoved)
-      @setHoverRemove(true)
-      @removeTools()
+      @dragGrowX e, (spacesMoved) -> @model.growInnerHoriz(spacesMoved)
     dragGrowDown: (e) =>
-      spacesMoved = Math.round((e.pageY - @offsetStartY) / 20 )
-      @model.growDown(spacesMoved)
-      @setHoverRemove(true)
-      @removeTools()
+      @dragGrowY e, (spacesMoved) -> @model.growDown(spacesMoved)
     dragGrowUp: (e) =>
-      spacesMoved = - Math.round((e.pageY - @offsetStartY) / 20 )
-      @model.growUp(spacesMoved)
-      @setHoverRemove(true)
-      @removeTools()
-      @model.moveVertical( - spacesMoved)
+      @dragGrowY e, (spacesMoved) ->
+        @model.growUp(-spacesMoved)
+        @model.moveVertical(spacesMoved)
     dragGrowLeft: (e) =>
-      spacesMoved = - Math.round((e.pageX - @offsetStartX) / 20 )
-      @model.growLeft(spacesMoved)
-      @setHoverRemove(true)
-      @removeTools()
-      @model.moveHoriz( - spacesMoved)
+      @dragGrowX e, (spacesMoved) ->
+        @model.growLeft(-spacesMoved)
+        @model.moveHoriz(spacesMoved)
     dragGrowRight: (e) =>
-      spacesMoved = Math.round((e.pageX - @offsetStartX) / 20 )
-      @model.growRight(spacesMoved)
-      @setHoverRemove(true)
-      @removeTools()
+      @dragGrowX e, (spacesMoved) -> @model.growRight(spacesMoved)
     rotate: =>
       @model.rotate()
+      @removeTools()
+    fineRotate: =>
+      @model.fineRotate()
       @removeTools()
     removeShape: =>
       app.shapeChooserView.removeShapeWithCid(@model.cid)

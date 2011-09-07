@@ -24,3 +24,4 @@ jQuery ->
       @set({'colors': new app.models.ColorsList(resp.colors.colors)}) if resp.colors
       @set({'letters': new app.models.LettersList(resp.letters)}, {'silent': true}) if resp.letters
       if resp.id then @id = resp.id else @id = resp 
+      return {}

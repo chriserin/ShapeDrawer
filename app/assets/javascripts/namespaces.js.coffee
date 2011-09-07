@@ -1,5 +1,5 @@
-  window.app ||= 
-    models: {},
+  window.app ||=
+    models: {}
     views: {}
-
+    routers: {}
 

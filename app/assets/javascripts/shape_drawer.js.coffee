@@ -44,8 +44,8 @@ jQuery ->
       rgb.alpha = .8
       app.word.get('colors').add(rgb)
   })
-  
-  #load()
+  app.router = new app.routers.ShapesRouter()
+  Backbone.history.start()
 
 create_grid = ->
   for i in [0..399]
@@ -69,16 +69,5 @@ create_color_chooser = ->
   $('#color_transparent').click -> change_color(@)
   $('#color_transparent').click -> draw_shapes()
 
-
-paste_selected_shapes = -> FB.currentWord.currentLetter.AddShapes(FB.buffer.GetCopies())
-
-k=for x in [0...3] 
-   {
-   foo:
-     bar:x
-     baz:3
-   qux:5
-   }
-
 clear_shape_chooser = ->
-	$("#shapes_chooser .shape_selector").remove()
+  $("#shapes_chooser .shape_selector").remove()

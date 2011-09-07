@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem 'rails', '3.1.0.rc4'
+gem 'rails', '3.1.0'
 #gem 'rails', :git => 'git://github.com/rails/rails.git' 
 
 # Bundle edge Rails instead:
@@ -12,17 +12,16 @@ end
 group :production do
   gem 'pg'
   gem 'thin'
-  gem 'therubyracer-heroku', '0.8.1.pre3'
 end
 
 # Asset template engines
 gem 'sass'
-gem 'sass-rails', "~> 3.1.0.rc"
+gem 'sass-rails'
 gem 'coffee-script'
 gem 'uglifier'
-
+gem 'backbone-rails'
 gem 'jquery-rails'
-gem 'sprockets', '2.0.0.beta.10'
+gem 'sprockets'
 gem 'coderay'
 gem 'uuid'
 # Use unicorn as the web server

@@ -45,6 +45,7 @@ jQuery ->
     renderChildShape: (view) ->
       app.shapes.add(view.model)
       parent = app.shapeManView.model
+      app.shapeChooserView.removeShapeWithCid(parent.child.cid) if parent.child
       parent.child = view.model
       view.model.parent = parent.cid
       view.model.set({zindex: 20}, {silent: true})

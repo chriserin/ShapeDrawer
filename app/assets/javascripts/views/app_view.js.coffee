@@ -61,3 +61,4 @@ jQuery ->
       word = app.sessionWords.getByCid(cid) unless word
       @switchWord(word)
       @displayPallette()
+      app.router.navigate("Edit/#{word.id}")

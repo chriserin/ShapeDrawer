@@ -17,11 +17,10 @@ jQuery ->
       
       if @model? then do @bindMethods
     el: '#shapes_chooser .shapes_wrapper'
-    events: {
-      'click .shape_chooser': 'selectShape',
-      'click .shape_remover': 'removeShape',
+    events:
+      'click .shape_chooser': 'selectShape'
+      'click .shape_remover': 'removeShape'
       'click .shape_bufferer': 'bufferShape'
-    }
     render: =>
       @model.sort()
       $(".shapes_wrapper").width(120 * @model.length)
