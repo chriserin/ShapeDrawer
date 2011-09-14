@@ -11,6 +11,9 @@ jQuery ->
         width: 0
         orientation: 0
         rotation: 0
+        skew: {x: 0, y: 0}
+        translate: {x: 0, y: 0} 
+        scale: 1
       super(arguments[0])
       @setColor(app.word.get('colors').last().get('colid')) unless arguments[0]?.colors
     getColor: (side = 0) ->
@@ -105,7 +108,8 @@ jQuery ->
       @set {'orientation': o}
     fineRotate: ->
       o = @get 'rotation'
-      o = (o + 15) % 360
+      o = (o + 15) % 90
+      if o is 0 then @rotate()
       @set {'rotation': o}
     growLeft: (spaces = 1) ->
       @growSide(0, spaces)
@@ -123,3 +127,27 @@ jQuery ->
       @growSide(1, -1)
     shrinkLeft: ->
       @growSide(0, -1)
+    scale: (num) ->
+      o = @get 'scale'
+      o += (num * .1)
+      @set {'scale': o}
+    translateX: (num) ->
+      translate = @get 'translate'
+      translate.x += num
+      @set {'translate': translate}
+      do @change
+    translateY: (num) ->
+      translate = @get 'translate'
+      translate.y += num
+      @set {'translate': translate}
+      do @change
+    skewX: (num) ->
+      skew = @get 'skew'
+      skew.x += num
+      @set {'skew': skew}
+      do @change
+    skewY: (num) ->
+      skew = @get 'skew'
+      skew.y += num
+      @set {'skew': skew}
+      do @change

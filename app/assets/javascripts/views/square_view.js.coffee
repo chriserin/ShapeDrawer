@@ -13,3 +13,4 @@ jQuery ->
       shape.set_a_size_rectangle(m_attr.orientation, m_attr.width * size)
       shape.set_b_size_rectangle(m_attr.orientation, m_attr.height * size)
       shape.round_corners(m_attr.corner_depths, size, m_attr.orientation)
+      app.views.ShapeView::transform(shape, m_attr)

@@ -278,6 +278,7 @@ div.color_remover
 
 .colors_menu {
   margin: 0 auto;
+  margin-bottom: 10px;
   position: relative;
   width: 60px;
   height: 28px;
@@ -461,7 +462,7 @@ div.color_selector
   left: 0px;
 }
 
-.rounder
+.rounder, #showTransformTools
 {
   position: absolute;
   height: 20px;
@@ -494,13 +495,18 @@ div.color_selector
   right: 0px;
 }
 
-.rMenu
+.rMenu, .tMenu
 {
   width: 50px;
   position: absolute;
   top: 0px;
   left: 20px;
   z-index: 90;
+}
+
+.tMenu
+{
+  width: 80px;
 }
 
 #word_view

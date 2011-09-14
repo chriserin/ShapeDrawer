@@ -1170,26 +1170,42 @@ $.widget("ui.draggable", $.ui.mouse, {
 			}
 
 			if(o.grid) {
-				var top = this.originalPageY + Math.round((pageY - this.originalPageY) / o.grid[1]) * o.grid[1];
+                                var distanceDivider = (o.grid[2] ? o.grid[2] : o.grid[1] )
+                                var vertSquares = Math.round((pageY - this.originalPageY) / distanceDivider )
+				var top = this.originalPageY + vertSquares * o.grid[1];
 				pageY = containment ? (!(top - this.offset.click.top < containment[1] || top - this.offset.click.top > containment[3]) ? top : (!(top - this.offset.click.top < containment[1]) ? top - o.grid[1] : top + o.grid[1])) : top;
 
-				var left = this.originalPageX + Math.round((pageX - this.originalPageX) / o.grid[0]) * o.grid[0];
+                                distanceDivider = (o.grid[2] ? o.grid[2] : o.grid[0] )
+				var left = this.originalPageX + Math.round((pageX - this.originalPageX) / distanceDivider) * o.grid[0];
 				pageX = containment ? (!(left - this.offset.click.left < containment[0] || left - this.offset.click.left > containment[2]) ? left : (!(left - this.offset.click.left < containment[0]) ? left - o.grid[0] : left + o.grid[0])) : left;
 			}
 
-		}
+		}else{
+                  var otop = parseInt(this.element.css('top').replace('px', ''))
+                  var oleft = parseInt(this.element.css('left').replace('px', ''))
+                  if(isNaN(otop) || isNaN(oleft)){
+                    this.correction = {top: 0, left: 0}
+                  }else{
+                    this.correction = {top:
+                                       (this.offset.click.top - (pageY - this.offset.parent.top)) + otop
+                                       ,
+                                       left:
+                                       (this.offset.click.left - (pageX - this.offset.parent.left)) + oleft
+                                       }
+                  }
+                }
 
 		return {
 			top: (
 				pageY																// The absolute mouse position
-				- this.offset.click.top													// Click offset (relative to the element)
+				- this.offset.click.top + this.correction.top													// Click offset (relative to the element)
 				- this.offset.relative.top												// Only for relative positioned nodes: Relative offset from element to offset parent
 				- this.offset.parent.top												// The offsetParent's offset without borders (offset + border)
 				+ ($.browser.safari && $.browser.version < 526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollTop() : ( scrollIsRootNode ? 0 : scroll.scrollTop() ) ))
 			),
 			left: (
 				pageX																// The absolute mouse position
-				- this.offset.click.left												// Click offset (relative to the element)
+				- this.offset.click.left + this.correction.left										// Click offset (relative to the element)
 				- this.offset.relative.left												// Only for relative positioned nodes: Relative offset from element to offset parent
 				- this.offset.parent.left												// The offsetParent's offset without borders (offset + border)
 				+ ($.browser.safari && $.browser.version < 526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollLeft() : scrollIsRootNode ? 0 : scroll.scrollLeft() ))

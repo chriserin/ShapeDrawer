@@ -18,7 +18,7 @@ jQuery ->
         parent.append("<div class='#{m_attr.shape_type} preview_shape #{@model.cid}'/>")
         shape = $("#{@elFrag}#{size} .#{@model.cid}")
         shape.css('z-index', @model.get('zindex'))
-        shape.scale(m_attr.scale)
+        @transform()
         @renderShape(shape, size, color, m_attr)
         shape.draggable(
           grid: [20, 20]
@@ -45,7 +45,8 @@ jQuery ->
       console.log(e)
       app.shapeChooserView.selectShapeWithModel(@model)
       return true
-  app.views.ShapeView::transform = (shape, m_attr) ->
-    shape.rotate(m_attr.rotation)
-    shape.skew(m_attr.skew.x, m_attr.skew.y)
-    shape.translate(m_attr.translate.x, m_attr.translate.y)
+    transform: () ->
+      shape.css('-webkit-transform', "rotate(#{@model.get('rotation')}deg)")
+      shape.skew(m_attr.skew.x, m_attr.skew.y)
+      shape.translate(m_attr.translate.x, m_attr.translate.y)
+      shape.scale(m_attr.scale)
