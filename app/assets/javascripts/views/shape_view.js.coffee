@@ -2,7 +2,7 @@ jQuery ->
   class app.views.ShapeView extends Backbone.View
     elFrag: ".size_"
     initialize: ->
-      $(".#{@model.cid}").live('click', @selectShape)
+      $(".#{@model.cid}").on('click', @selectShape)
     render: (shape, options, size = 20, letterId) ->
       letterId = @model.collection.letterId
       if not @model.parent

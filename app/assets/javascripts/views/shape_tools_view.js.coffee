@@ -2,13 +2,14 @@ jQuery ->
   class app.views.ShapeToolsView extends app.views.ShapeManipulationView
     initialize: ->
       @model.toolsView = @
-      $(@el).find(".#{@model.cid}").live('mouseover', @displayTools)
-      $(".shape_tools_#{@model.cid}").live('mouseleave', @removeTools)
-      $(".shape_tools_#{@model.cid} .rounder").live('click', @displayRoundTools)
-      $(".shape_tools_#{@model.cid} #rotate").live('click', @rotate)
-      $(".shape_tools_#{@model.cid} #fineRotate").live('click', @fineRotate)
-      $(".shape_tools_#{@model.cid} #removeShape").live('click', @removeShape)
-      $(".shape_tools_#{@model.cid} #showTransformTools").live('click', @displayTransformTools)
+      $(".graph_paper").on('mouseover', ".#{@model.cid}", @displayTools)
+      tools_selector =".shape_tools_#{@model.cid}"
+      $(".graph_paper").on('mouseleave', tools_selector, @removeTools)
+      $(".graph_paper").on('click', tools_selector + " .rounder", @displayRoundTools)
+      $(".graph_paper").on('click', tools_selector + " #rotate", @rotate)
+      $(".graph_paper").on('click', tools_selector + " #fineRotate", @fineRotate)
+      $(".graph_paper").on('click', tools_selector + " #removeShape", @removeShape)
+      $(".graph_paper").on('click', tools_selector + " #showTransformTools", @displayTransformTools)
     el: '.graph_paper'
     setHoverRemove: (flag) ->
       @hoverRemove = flag
@@ -85,6 +86,7 @@ jQuery ->
       $(".growLeft").draggable(dragOptions)
       dragOptions.stop = @dragInnerGrowRight
       $(".growRight").draggable(dragOptions)
+
     removeTools: =>
       if @hoverRemove
         $(".shape_tools").remove()
@@ -93,10 +95,12 @@ jQuery ->
         .css('z-index', model.previousZIndex)
         @allowToolsDisplay()
         $(".graph_paper .#{model.cid}").unbind('click', model.toolsView.toggleAltTools)
+
     toggleAltTools: =>
       @altToolsFlag = ! @altToolsFlag
       do @removeTools
       do @displayTools
+
     displayGrowRoundTools: ->
       tools = $(".shape_tools_#{@model.cid} ")
         .append("<div class='topBar'><div class='growUp grower'></div><div class='rounder rTopLeft' id='r_0'>R</div></div>")

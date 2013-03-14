@@ -1,1 +1,1 @@
-rvm use dh@shapedrawer
+rvm use r2@shapedrawer --create
