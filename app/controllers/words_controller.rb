@@ -1,3 +1,4 @@
+require 'sass/util'
 require 'sass/engine'
 require 'uuid'
 
