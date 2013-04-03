@@ -45,7 +45,8 @@ jQuery ->
       console.log(e)
       app.shapeChooserView.selectShapeWithModel(@model)
       return true
+
   app.views.ShapeView::transform = (shape, m_attr) ->
-    shape.rotate(m_attr.rotation)
-    shape.skew(m_attr.skew.x, m_attr.skew.y)
-    shape.translate(m_attr.translate.x, m_attr.translate.y)
+    shape.rotate(m_attr.rotation) if m_attr.rotation
+    shape.skew(m_attr.skew.x, m_attr.skew.y) if m_attr.skew
+    shape.translate(m_attr.translate.x, m_attr.translate.y) if m_attr.translate
