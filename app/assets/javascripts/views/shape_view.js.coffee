@@ -1,8 +1,11 @@
 jQuery ->
   class app.views.ShapeView extends Backbone.View
+
     elFrag: ".size_"
+
     initialize: ->
       $(".#{@model.cid}").on('click', @selectShape)
+
     render: (shape, options, size = 20, letterId) ->
       letterId = @model.collection.letterId
       if not @model.parent
@@ -29,11 +32,13 @@ jQuery ->
           childShape = @model.child
           childShape.view.render(childShape, {}, size, letterId)
       if size isnt 6 then @render shape, options, 6
+
     dragStart: (e) =>
       @selectShape()
       @offsetStartY = e.pageY
       @offsetStartX = e.pageX
       @model.toolsView.preventToolsDisplay()
+
     stop: (e) =>
       ySpaces = Math.round((e.pageY - @offsetStartY) / 20)
       xSpaces = Math.round((e.pageX - @offsetStartX) / 20)
@@ -41,6 +46,7 @@ jQuery ->
       @model.moveHoriz(xSpaces)
       @model.toolsView.allowToolsDisplay()
       true
+
     selectShape: (e) =>
       console.log(e)
       app.shapeChooserView.selectShapeWithModel(@model)

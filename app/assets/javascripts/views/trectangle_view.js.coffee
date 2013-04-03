@@ -1,11 +1,15 @@
 jQuery ->
   class app.views.TrectangleView extends app.views.ShapeView
+
     initialize: ->
       @model.bind('change', _.bind(@render, @))
       @model.view = @
       super()
+
     tagName: 'div'
+
     el: '.size_'
+
     renderShape: (shape, size, color, m_attr) ->
       shape.set_trectangle_shape_color(m_attr.orientation, @model.getColor(0).to_s(), @model.getColor(1).to_s(), @model.getColor(2).to_s(), @model.getColor(3).to_s())
       shape.move_to(m_attr.position.left * size, m_attr.position.top * size)

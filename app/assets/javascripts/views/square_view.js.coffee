@@ -1,11 +1,13 @@
 jQuery ->
   class app.views.SquareView extends app.views.ShapeView
+
     initialize: ->
       @model.bind('change', _.bind(@render, @))
       @model.view = @
       super()
     tagName: 'div'
     el: '.size_'
+
     renderShape: (shape, size = 20, color, m_attr) ->
       shape.set_rectangle_shape_color(m_attr.orientation, color.to_s)
       shape.clear_border_sizes()

@@ -1,8 +1,11 @@
 
 jQuery ->
   class app.views.ColorView extends Backbone.View
+
     initialize: ->
+
     el: '#colors_chooser'
+
     render: ->
       colorContainer = @getColorContainer()
       whiteBackgroundDiv = $("<div class='white_background'></div>")
@@ -15,6 +18,7 @@ jQuery ->
         .append("<div class='color_remover' name='#{@model.cid}'><div class='del_shape_sign'></div><div class='del_shape_sign_vert'></div></div>")
         .append(whiteBackgroundDiv)
       colorContainer.append(wholeColorDiv)
+
     getColorContainer: ->
       color = @model.attributes
       if color.r > color.g and color.r  > color.b

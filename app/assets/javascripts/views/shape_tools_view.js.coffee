@@ -1,5 +1,6 @@
 jQuery ->
   class app.views.ShapeToolsView extends app.views.ShapeManipulationView
+
     initialize: ->
       @model.toolsView = @
       $(".graph_paper").on('mouseover', ".#{@model.cid}", @displayTools)
@@ -10,18 +11,23 @@ jQuery ->
       $(".graph_paper").on('click', tools_selector + " #fineRotate", @fineRotate)
       $(".graph_paper").on('click', tools_selector + " #removeShape", @removeShape)
       $(".graph_paper").on('click', tools_selector + " #showTransformTools", @displayTransformTools)
+
     el: '.graph_paper'
+
     setHoverRemove: (flag) ->
       @hoverRemove = flag
+
     displayRoundTools: (e) =>
       if($(".rMenu").length is 0)
         app.roundTools = new app.views.RoundToolsView({model: @model, el: $(e.target)})
         app.roundTools.render(e.target)
         return false
+
     displayTransformTools: (e) =>
       if($(".tMenu").length is 0)
         app.transformTools = new app.views.TransformToolsView({model: @model, el: $(e.target)})
         app.transformTools.render(e.target)
+
     displayTools: =>
       if @.__proto__.preventToolsDisplayFlag is true or @hoverRemove is false then return false 
       ShapeToolsView::currentToolsModel = @model
@@ -53,12 +59,14 @@ jQuery ->
       app.views.ShapeView::transform(tools, @model.attributes)
       $(".graph_paper .#{@model.cid}").bind('click', @toggleAltTools)
       $(".rounder").css("z-index", @operatingZIndex + 1)
+
     getParentZIndex: (shape) ->
       zIndex = @shape.parent().css("z-index")
       if(isNaN(zIndex))
         10
       else
         parseInt(zIndex)
+
     displayAltTools: ->
       tools = $(".shape_tools_#{@model.cid} ")
         .append("<div class='topBar'><div class='growUp innergrower'></div><div class='rTopLeft' id='showTransformTools'>T</div></div>")
@@ -72,6 +80,7 @@ jQuery ->
       else
         @addInnerGrowerDrags()
       app.views.ShapeView::transform(tools, @model.attributes)
+
     addInnerGrowerDrags: ->
       dragOptions =
         grid: [20, 20]
@@ -87,6 +96,7 @@ jQuery ->
       dragOptions.stop = @dragInnerGrowRight
       $(".growRight").draggable(dragOptions)
 
+
     removeTools: =>
       if @hoverRemove
         $(".shape_tools").remove()
@@ -96,10 +106,12 @@ jQuery ->
         @allowToolsDisplay()
         $(".graph_paper .#{model.cid}").unbind('click', model.toolsView.toggleAltTools)
 
+
     toggleAltTools: =>
       @altToolsFlag = ! @altToolsFlag
       do @removeTools
       do @displayTools
+
 
     displayGrowRoundTools: ->
       tools = $(".shape_tools_#{@model.cid} ")
@@ -109,6 +121,7 @@ jQuery ->
         .append("<div class='rightBar'><div class='growRight grower'></div><div class='rounder rTopRight' id='r_1'>R</div></div>")
       @addGrowerDrags()
       tools.css("-webkit-transform", "rotate(#{@model.get('rotation')}deg)")
+
     addGrowerDrags: ->
       dragOptions =
         grid: [20, 20, 20 * Math.cos(@model.get('rotation') * Math.PI/180)]
@@ -123,60 +136,78 @@ jQuery ->
       $(".growLeft").draggable(dragOptions)
       dragOptions.stop = @dragGrowRight
       $(".growRight").draggable(dragOptions)
+
     dragStart: (e) =>
       @offsetStartY = e.pageY
       @offsetStartX = e.pageX
       @setHoverRemove(false)
       @preventToolsDisplay()
       return true
+
     getSpacesMovedY: (e) =>
       Math.round((e.pageY - @offsetStartY) / (Math.cos(@model.get('rotation') * Math.PI/180)  * 20) )
+
     getSpacesMovedX: (e) =>
       Math.round((e.pageX - @offsetStartX) / (Math.cos(@model.get('rotation') * Math.PI/180)  * 20) )
+
     dragGrowY: (e, callback) =>
       spacesMoved = @getSpacesMovedY(e)
       callback.call(this, spacesMoved)
       @setHoverRemove(true)
       @removeTools()
+
     dragGrowX: (e, callback) =>
       spacesMoved = @getSpacesMovedX(e)
       callback.call(this, spacesMoved)
       @setHoverRemove(true)
       @removeTools()
+
     dragInnerGrowDown: (e) =>
       @dragGrowY e, (spacesMoved) -> @model.growInnerVertical(spacesMoved)
+
     dragInnerGrowUp: (e) =>
       @dragGrowY e, (spacesMoved) ->
         @model.growInnerVertical(-spacesMoved)
         @model.moveVertical(spacesMoved)
+
     dragInnerGrowLeft: (e) =>
       @dragGrowX e, (spacesMoved) ->
         @model.growInnerHoriz(-spacesMoved)
         @model.moveHoriz(spacesMoved)
+
     dragInnerGrowRight: (e) =>
       @dragGrowX e, (spacesMoved) -> @model.growInnerHoriz(spacesMoved)
+
     dragGrowDown: (e) =>
       @dragGrowY e, (spacesMoved) -> @model.growDown(spacesMoved)
+
     dragGrowUp: (e) =>
       @dragGrowY e, (spacesMoved) ->
         @model.growUp(-spacesMoved)
         @model.moveVertical(spacesMoved)
+
     dragGrowLeft: (e) =>
       @dragGrowX e, (spacesMoved) ->
         @model.growLeft(-spacesMoved)
         @model.moveHoriz(spacesMoved)
+
     dragGrowRight: (e) =>
       @dragGrowX e, (spacesMoved) -> @model.growRight(spacesMoved)
+
     rotate: =>
       @model.rotate()
       @removeTools()
+
     fineRotate: =>
       @model.fineRotate()
       @removeTools()
+
     removeShape: =>
       app.shapeChooserView.removeShapeWithCid(@model.cid)
+
     preventToolsDisplay: ->
       @removeTools()
       @.__proto__.preventToolsDisplayFlag = true
+
     allowToolsDisplay: ->
       @.__proto__.preventToolsDisplayFlag = false
