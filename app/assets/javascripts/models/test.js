@@ -13,5 +13,3 @@ _.extend(ExtendedInventory.defaults, ExtendedInventory.prototype.defaults, {rabb
 
 var i = new Inventory();
 var ei = new ExtendedInventory();
-console.log(i.attributes);
-console.log(ei.attributes);

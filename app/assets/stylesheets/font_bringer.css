@@ -25,14 +25,15 @@ div.graph_paper
 div.grid_square
 {
 	background-color: white;
-	height: 18px;
-	width: 18px;
+	height: 20px;
+	width: 20px;
+	box-sizing: border-box;
 	border-color: lightblue;
 	border-style: solid;
 	border-width: 1px;
 	position: relative;
 	z-index: 4;
-	float: left;	
+	float: left;
 }
 
 div.command,
@@ -50,7 +51,7 @@ div.fake_shape
 	border-style: solid;
 	border-width: 0 40px 40px 40px;
 	position: absolute;
-	z-index: 10;	
+	z-index: 10;
 }
 
 div.fake_shape
@@ -75,8 +76,8 @@ div.trectangle
   border-style: solid;
   top: 20px;
   left: 20px;
-  border-color: rgba(0, 200, 0, .5); 
-  background: transparent; 
+  border-color: rgba(0, 200, 0, .5);
+  background: transparent;
 }
 
 div.rectangle
@@ -86,7 +87,7 @@ div.rectangle
   width: 60px;
   top: 20px;
   left: 20px;
-  background: rgba(0, 0, 200, .5); 
+  background: rgba(0, 0, 200, .5);
 }
 
 div.triangle
@@ -110,7 +111,7 @@ div#letter_views
 	/*position: relative;*/
 	margin-top: 20px;
 	margin-left: 100px;
-	height: 280px;	
+	height: 280px;
 }
 
 .letter_display
@@ -151,31 +152,31 @@ div#letter_views
 .size_10
 {
 	height: 200px;
-	width: 200px;	
+	width: 200px;
 }
 
 .size_8
 {
 	height: 160px;
-	width: 160px;	
+	width: 160px;
 }
 
 .size_6
 {
 	height: 120px;
-	width: 120px;	
+	width: 120px;
 }
 
 .size_4
 {
 	height: 80px;
-	width: 80px;	
+	width: 80px;
 }
 
 .size_2
 {
 	height: 40px;
-	width: 40px;	
+	width: 40px;
 }
 
 div#shapes_chooser
@@ -218,7 +219,7 @@ div.shape_selector
 
 .selectable_shape
 {
-  margin: 0 auto; 
+  margin: 0 auto;
   position: relative!important;
   top: 50%!important;
 }
@@ -238,7 +239,7 @@ div.color_remover
 	display: inline;
 	height: 25px;
 	width: 25px;
-        position: relative; 
+        position: relative;
 
 }
 
@@ -261,7 +262,7 @@ div.color_remover
 
 #add_color
 {
-  height: 20px;  
+  height: 20px;
   width: 25px;
   display: inline;
   float: left;
@@ -322,7 +323,7 @@ div.color_selector
   width: 250px;
   margin-left: 20px;
   height: auto;
-  
+
 }
 
 .color_container
@@ -354,7 +355,7 @@ div.color_selector
 {
   color: #333333;
   background-color: rgba(100, 100, 100, .2)
-} 
+}
 
 .color_wrapper
 {
@@ -542,7 +543,7 @@ div.color_selector
   border-radius: 10px;
 }
 
-.shape_adder   
+.shape_adder
 {
   position: relative;
   width: 100px;
@@ -552,7 +553,7 @@ div.color_selector
   margin-left: 20px;
 }
 
-.child_adder   
+.child_adder
 {
   padding-left: 10px;
   margin-top: 20px;
@@ -661,7 +662,7 @@ input[type="range"]{
 }
 
 input[type="range"]::-webkit-slider-thumb{
-  -webkit-appearance:none !important;  
+  -webkit-appearance:none !important;
   background-color: black;
   height: 14px;
   width: 14px;
@@ -699,7 +700,7 @@ input[type="range"]::-webkit-slider-thumb{
   height: 25px;
   width: 50px;
   float: left;
-  margin-top: 40px; 
+  margin-top: 40px;
 }
 
 .arrow_tip
@@ -781,7 +782,7 @@ input[type="range"]::-webkit-slider-thumb{
   border-color: transparent transparent black transparent;
   border-width: 0px 10px 15px 10px;
   position: absolute;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .number_down
@@ -792,7 +793,7 @@ input[type="range"]::-webkit-slider-thumb{
   border-width: 15px 10px 0px 10px;
   position: absolute;
   top: 20px;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 #words_display
@@ -817,7 +818,7 @@ input[type="range"]::-webkit-slider-thumb{
   float: right;
   z-index: 200;
   position: relative;
-} 
+}
 
 #add_word {
   width: 120px;
@@ -847,10 +848,10 @@ input[type="range"]::-webkit-slider-thumb{
   border: solid red 1px;
   padding: 5px;
   cursor: pointer;
-  -webkit-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
-  -moz-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
-  -ms-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
-  -o-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+  -webkit-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750);
+  -moz-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750);
+  -ms-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750);
+  -o-transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750);
   transition: all 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750); /* linear */
 }
 

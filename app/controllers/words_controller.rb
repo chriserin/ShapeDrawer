@@ -19,16 +19,16 @@ class WordsController < ApplicationController
         @words.each {|x| result += getDefinitionWithAddedId(constructWordJson(x), x.id) + "," }
         result = result.slice(0, result.length - 1)
         result = result || ""
-        render :json => "[" + result  + "]" 
+        render json: "[" + result  + "]"
       end
     end
   end
-  
+
   def getDefinitionWithAddedId(wordJSON, id)
     result = wordJSON.insert(1, "\"id\": #{id},")
-    return result 
+    return result
   end
-  
+
   def create
     if(cookies[:user_id].nil?)
       uuid = UUID.new.generate
@@ -38,7 +38,7 @@ class WordsController < ApplicationController
     @word = Word.create!(:word_definition => params['word'], :colors => params['colors'], :session_id => cookies[:user_id])
     render :layout => false
   end
-          
+
   def update
     @word = Word.find(params[:id])
     @word[:word_definition] = params['word']
@@ -46,7 +46,7 @@ class WordsController < ApplicationController
     @word.save
     render :layout => false
   end
-  
+
   def show
     respond_to do |format|
             @word = Word.find(params[:id])
@@ -75,7 +75,7 @@ class WordsController < ApplicationController
 
   def constructWordJson(word)
     if word.colors
-      return word.word_definition.insert(word.word_definition.length - 1, ", \"colors\": #{word.colors}") 
+      return word.word_definition.insert(word.word_definition.length - 1, ", \"colors\": #{word.colors}")
     else
       return word.word_definition
     end

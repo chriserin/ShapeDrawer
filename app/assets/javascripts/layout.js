@@ -1,6 +1,9 @@
 (function($){
 	var initLayout = function() {
 		var hash = window.location.hash.replace('#', '');
+		if (hash.length == 0) {
+			hash = "nothing";
+		}
 		var currentTab = $('ul.navigationTabs a')
 							.bind('click', showTab)
 							.filter('a[rel=' + hash + ']');
@@ -49,7 +52,7 @@
 			}
 		});
 	};
-	
+
 	var showTab = function(e) {
 		var tabIndex = $('ul.navigationTabs a')
 							.removeClass('active')
@@ -62,6 +65,6 @@
 				.eq(tabIndex)
 				.show();
 	};
-	
+
 	EYE.register(initLayout, 'init');
 })(jQuery);
