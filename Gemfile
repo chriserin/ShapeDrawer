@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.2.0'
 
 gem 'rails', '4.0.0beta1'
-#gem 'rails', :git => 'git://github.com/rails/rails.git' 
+#gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -28,7 +28,6 @@ gem 'coffee-script'
 gem 'backbone-rails'
 gem 'jquery-rails'
 gem 'sprockets'
-gem 'coderay'
 gem 'uuid'
 # Use unicorn as the web server
 # gem 'unicorn'
