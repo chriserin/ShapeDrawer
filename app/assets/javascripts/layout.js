@@ -66,5 +66,5 @@
 				.show();
 	};
 
-	EYE.register(initLayout, 'init');
+	//EYE.register(initLayout, 'init');
 })(jQuery);
