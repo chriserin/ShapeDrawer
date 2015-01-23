@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby '2.2.0'
 
-gem 'rails'
+gem 'rails', '4.2.0'
 gem 'pg'
 #gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -21,6 +21,7 @@ group :assets do
 end
 
 
+gem 'responders', '~> 2.0'
 gem 'pry-rails'
 gem 'coffee-script'
 gem 'backbone-rails'
