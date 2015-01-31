@@ -60,7 +60,11 @@ class WordsController < ApplicationController
     puts @size
     @word = Word.find(params[:id])
     @wordDefinitionJSON = ActiveSupport::JSON.decode(@word.word_definition)
+    usedColors = @wordDefinitionJSON["letters"].map{|l| l["shapes"]}.flatten.map {|s| s["colors"]}.flatten
+
     @colorsJSON = ActiveSupport::JSON.decode(@word.colors)
+    @colorsJSON["colors"] = @colorsJSON["colors"].select {|color| usedColors.include? color["colid"]}
+
     respond_to do |format|
       format.html {
         render 'output', :layout => false
