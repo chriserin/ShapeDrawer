@@ -63,7 +63,7 @@ $<%= color['colid']%>: <%=get_color_string(color)%>;
   @include position(<%= shape["position"]["top"] %>, <%= shape["position"]["left"] %>);
   @include radius(<%= shape["corner_depths"][orient(0, shape)] %>, <%= shape["corner_depths"][orient(1, shape)] %>, <%= shape["corner_depths"][orient(2, shape)] %>, <%= shape["corner_depths"][orient(3, shape)] %>);
   z-index: <%= 10 + shape_index %>;
-  -webkit-transform: scale(1, 1) skew(<%= shape["skew"]["x"] * Math::PI / 180  %>rad, <%= shape["skew"]["y"] * Math::PI / 180%>rad) translate(<%= shape["translate"]["x"] %>px, <%= shape["translate"]["y"] %>px);
+  -webkit-transform: scale(1, 1) skew(<%= shape["skew"]["x"] * Math::PI / 180  %>rad, <%= shape["skew"]["y"] * Math::PI / 180%>rad) translate(<%= shape["translate"]["x"] %>px, <%= shape["translate"]["y"] %>px) rotate(<%= shape["rotation"]%>deg);
   <%= shape_css %>}
     <% end %>
 <% end %>
