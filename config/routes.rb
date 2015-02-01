@@ -4,4 +4,6 @@ ShapeDrawer::Application.routes.draw do
   resources :words
   get 'words/:id/output' => 'words#output'
   get 'words/:id/output/:size' => 'words#output'
+  get 'image/random(.:format)' => 'image#random'
+  get 'image/:id(.:format)' => 'image#show'
 end
