@@ -23,10 +23,8 @@ class RandomWord
 
       shape["squares"] = [random(10), random(10), random(10), random(10)]
 
-      if shape_type == 'triangle'
-        shape["height"] = random(20)
-        shape["width"] = random(20)
-      end
+      shape["height"] = random(20)
+      shape["width"] = random(20)
 
       shape["position"]["top"] = random(10) + 10 - (shape["height"] + shape["squares"].inject(&:+)) / 2
       shape["position"]["left"] = random(10) + 10 - (shape["width"] + shape["squares"].inject(&:+)) / 2
