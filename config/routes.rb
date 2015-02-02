@@ -6,4 +6,5 @@ ShapeDrawer::Application.routes.draw do
   get 'words/:id/output/:size' => 'words#output'
   get 'image/random(.:format)' => 'image#random'
   get 'image/:id(.:format)' => 'image#show'
+  post 'slack' => 'slack#respond'
 end
