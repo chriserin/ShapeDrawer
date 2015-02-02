@@ -16,8 +16,8 @@ class ImageCapture
     @id = id
   end
 
-  def capture
-    visit "/words/#{id}/output/20"
+  def capture(size)
+    visit "/words/#{id}/output/#{size}"
     page.driver.render_base64(:png, {selector: '#letter0'})
   end
 end
