@@ -1,15 +1,17 @@
 class RandomWord
   attr_reader :id
 
-  def self.create
-    RandomWord.new
+  def self.create(phrase=nil)
+    RandomWord.new(phrase)
   end
 
-  def initialize
+  def initialize(phrase)
     word_base = Word.find(2)
     new_word = word_base.dup
-    colors = new_word.colors_json["colors"].map {|color| color["colid"]}
-    new_word.word_definition = randomize(new_word.word_json, colors).to_json
+    colors = ColorGenerator.new(20).generate(phrase)
+    colors_hash = colors.map {|color| color["colid"]}
+    new_word.word_definition = randomize(new_word.word_json, colors_hash).to_json
+    new_word.colors = { "colors": colors }.to_json
     new_word.save
     @id = new_word.id
   end
@@ -39,7 +41,6 @@ class RandomWord
       shape["translate"]["y"] = random(10)
 
       shape["rotation"] = random(360)
-
 
       shape["colors"] = [colors.sample, colors.sample, colors.sample, colors.sample]
       without_transparent = shape["colors"] - ["transparent"]

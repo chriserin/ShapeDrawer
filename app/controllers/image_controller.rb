@@ -5,7 +5,7 @@ class ImageController < ApplicationController
   end
 
   def random
-    word = RandomWord.create
+    word = RandomWord.create(params["text"])
     send_data Base64.decode64(ImageCapture.new(word.id).capture(size(20))), type: 'image/png', disposition: 'inline'
   end
 
