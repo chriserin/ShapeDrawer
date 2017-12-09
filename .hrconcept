@@ -1,4 +1,4 @@
 name: shapedrawer
 url: shapdrawer.herokuapp.com
 description: |
-This started out as an experiment to create fonts+typography out of html+css shapes.  Whether or not that was achieved is up for judgement, it was fun though.  It is an extensive single page backbone.js+coffeescript application written when those technologies received a big boost by the introduction of the asset pipeline in Rails.
+  This started out as an experiment to create fonts+typography out of html+css shapes.  Whether or not that was achieved is up for judgement, it was fun though.  It is an extensive single page backbone.js+coffeescript application written when those technologies received a big boost by the introduction of the asset pipeline in Rails.
